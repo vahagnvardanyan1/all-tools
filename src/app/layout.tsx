@@ -2,9 +2,10 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Inter, Open_Sans as OpenSans } from 'next/font/google';
 
+import AppRouterCacheProviderWrapper from '@/providers/AppRouterCacheProviderWrapper';
+
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import AppRouterCacheProviderWrapper from '@/providers/AppRouterCacheProviderWrapper';
 
 const inter = Inter({
   subsets: ['latin'],
