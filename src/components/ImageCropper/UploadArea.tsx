@@ -10,6 +10,10 @@ interface UploadAreaProps {
 interface UploadAreaComponentProps {
   onFileSelect: (file: File) => void;
   error?: string;
+  title?: string;
+  subtitle?: string;
+  buttonText?: string;
+  supportedFormats?: string;
 }
 
 const UploadAreaContainer = styled(Paper, {
@@ -32,7 +36,14 @@ const HiddenInput = styled('input')({
   display: 'none',
 });
 
-const UploadArea: React.FC<UploadAreaComponentProps> = ({ onFileSelect, error }) => {
+const UploadArea: React.FC<UploadAreaComponentProps> = ({
+  onFileSelect,
+  error,
+  title = 'Drag & drop your image here',
+  subtitle = 'or click to select from your device',
+  buttonText = 'Choose Image',
+  supportedFormats = 'Supports: JPG, PNG, GIF (Max 10MB)',
+}) => {
   const [isDragActive, setIsDragActive] = React.useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -116,16 +127,16 @@ const UploadArea: React.FC<UploadAreaComponentProps> = ({ onFileSelect, error })
       >
         <CloudUpload sx={{ fontSize: 48, color: 'primary.main', mb: 2 }} />
         <Typography variant="h6" gutterBottom>
-          Drag & drop your image here
+          {title}
         </Typography>
         <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-          or click to select from your device
+          {subtitle}
         </Typography>
         <Button variant="contained" startIcon={<CloudUpload />}>
-          Choose Image
+          {buttonText}
         </Button>
         <Typography variant="caption" display="block" sx={{ mt: 1 }}>
-          Supports: JPG, PNG, GIF (Max 10MB)
+          {supportedFormats}
         </Typography>
         <HiddenInput ref={fileInputRef} type="file" accept="image/*" onChange={handleInputChange} />
       </UploadAreaContainer>

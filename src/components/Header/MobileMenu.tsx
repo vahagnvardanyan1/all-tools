@@ -1,14 +1,9 @@
 import React from 'react';
 
 import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import MenuIcon from '@mui/icons-material/Menu';
 import Box from '@mui/material/Box';
-import Link from 'next/link';
-import IconButton from '@mui/material/IconButton';
 import { usePathname } from 'next/navigation';
 import { navigationItems } from '@/constants/navigation';
-import { Texts } from '@/styles/texts';
 import NavigationItem from './NavigationItem';
 
 type MobileMenuProps = {

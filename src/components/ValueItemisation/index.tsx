@@ -50,31 +50,29 @@ const ValueDescription = styled(Typography)(({ theme }) => ({
   lineHeight: 1.6,
 }));
 
-const valueItems = [
-  {
-    icon: <MoneyOff />,
-    title: 'Free photo cropping',
-    description: "Save time, money, and peace of mind with Picsart's free image cropper.",
-  },
-  {
-    icon: <HighQuality />,
-    title: 'Zero quality loss',
-    description: 'Instantly crop images without sacrificing your photo quality.',
-  },
-  {
-    icon: <AutoFixHigh />,
-    title: 'Beginner-friendly cropping',
-    description: 'Easily crop photos online with an easy-to-use cropping tool.',
-  },
-];
+interface ValueItem {
+  iconName: string;
+  title: string;
+  description: string;
+}
 
-const ValueItemisation: React.FC = () => {
+const iconMap: Record<string, React.ReactNode> = {
+  MoneyOff: <MoneyOff />,
+  HighQuality: <HighQuality />,
+  AutoFixHigh: <AutoFixHigh />,
+};
+
+interface ValueItemisationProps {
+  valueItems: ValueItem[];
+}
+
+const ValueItemisation: React.FC<ValueItemisationProps> = ({ valueItems }) => {
   return (
     <ValueContainer maxWidth="lg">
       <ValueGrid>
         {valueItems.map((item, index) => (
           <ValueItem key={index}>
-            <ValueIcon>{item.icon}</ValueIcon>
+            <ValueIcon>{iconMap[item.iconName]}</ValueIcon>
             <ValueTitle variant="h5">{item.title}</ValueTitle>
             <ValueDescription variant="body1">{item.description}</ValueDescription>
           </ValueItem>

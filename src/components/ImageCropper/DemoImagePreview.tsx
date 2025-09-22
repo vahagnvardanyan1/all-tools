@@ -4,6 +4,8 @@ import { styled } from '@mui/material/styles';
 
 interface DemoImagePreviewProps {
   show: boolean;
+  imageSrc: string;
+  altText: string;
 }
 
 const DemoImageContainer = styled(Box)({
@@ -17,12 +19,12 @@ const DemoImage = styled('img')({
   display: 'block',
 });
 
-const DemoImagePreview: React.FC<DemoImagePreviewProps> = ({ show }) => {
+const DemoImagePreview: React.FC<DemoImagePreviewProps> = ({ show, imageSrc, altText }) => {
   if (!show) return null;
 
   return (
     <DemoImageContainer>
-      <DemoImage src="https://pastatic.picsart.com/cms-pastatic/fdddd077-f0b2-4011-8025-4f2469de9b92.png?type=webp&to=min&r=1200&q=90" alt="Demo image for cropping" loading="lazy" />
+      <DemoImage src={imageSrc} alt={altText} loading="lazy" />
     </DemoImageContainer>
   );
 };

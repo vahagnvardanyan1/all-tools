@@ -1,7 +1,7 @@
 import React from 'react';
-import { Box, Typography, Card, CardContent, Grid, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import { Box, Typography, Card, CardContent, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { CloudUpload, CropRotate, Tune, Download, CheckCircle } from '@mui/icons-material';
+import { CheckCircle, CloudUpload, CropRotate, Tune, Download, PhotoSizeSelectLarge, AspectRatio, CropFree } from '@mui/icons-material';
 
 const HowToContainer = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(8),
@@ -103,42 +103,41 @@ const HoverContent = styled(Box)(({ theme }) => ({
   },
 }));
 
-const steps = [
-  {
-    icon: <CloudUpload />,
-    title: 'Upload Your Image',
-    description: 'Drag and drop your image into the upload area or click to select from your device.',
-    details: ['Supports JPG, PNG, and GIF formats', 'Maximum file size: 10MB', 'Works with photos, graphics, and screenshots'],
-  },
-  {
-    icon: <CropRotate />,
-    title: 'Crop Your Image',
-    description: 'Use the cropping interface to select the area you want to keep.',
-    details: ['Drag the corners to resize the crop area', 'Move the crop area by dragging the center', 'Real-time preview of your selection'],
-  },
-  {
-    icon: <Tune />,
-    title: 'Adjust Settings',
-    description: 'Fine-tune your crop with zoom, rotation, and aspect ratio controls.',
-    details: ['Zoom: 1x to 3x magnification', 'Rotation: -180° to +180° adjustment', 'Aspect ratios: Free, 1:1, 4:3, 16:9, 3:2'],
-  },
-  {
-    icon: <Download />,
-    title: 'Download Result',
-    description: 'Click the download button to save your perfectly cropped image.',
-    details: ['High-quality JPEG output', 'Maintains image resolution', 'Instant download to your device'],
-  },
-];
+interface HowToStep {
+  iconName: string;
+  title: string;
+  description: string;
+  details: string[];
+}
 
-const HowTo: React.FC = () => {
+const iconMap: Record<string, React.ReactNode> = {
+  CloudUpload: <CloudUpload />,
+  CropRotate: <CropRotate />,
+  Tune: <Tune />,
+  Download: <Download />,
+  PhotoSizeSelectLarge: <PhotoSizeSelectLarge />,
+  AspectRatio: <AspectRatio />,
+  CropFree: <CropFree />,
+};
+
+interface HowToProps {
+  steps: HowToStep[];
+  title: string;
+  subtitle: string;
+  videoSrc: string;
+  videoPoster: string;
+  proTip?: string;
+}
+
+const HowTo: React.FC<HowToProps> = ({ steps, title, subtitle, videoSrc, videoPoster, proTip }) => {
   return (
     <HowToContainer>
       <Box textAlign="center" mb={6}>
         <Typography variant="h2" component="h2" gutterBottom sx={{ fontWeight: 700, color: 'primary.main', fontSize: { xs: '1.75rem', md: '3rem' } }}>
-          How to Use the Image Cropper
+          {title}
         </Typography>
         <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 600, mx: 'auto' }}>
-          Follow these simple steps to crop your images like a pro in just a few clicks
+          {subtitle}
         </Typography>
       </Box>
 
@@ -155,8 +154,8 @@ const HowTo: React.FC = () => {
           }}
         >
           <VideoContainer sx={{ width: '100%' }}>
-            <StyledVideo autoPlay loop muted playsInline poster="https://pastatic.picsart.com/cms-pastatic/d80d073d-aac5-4256-830d-7aa246e84c11.png?type=webp&to=min&r=-1" preload="metadata">
-              <source src="https://pastatic.picsart.com/cms-pastatic/3a27b55a-cee3-46c2-ac78-6c6aa8956d89.mp4" type="video/mp4" />
+            <StyledVideo autoPlay loop muted playsInline poster={videoPoster} preload="metadata">
+              <source src={videoSrc} type="video/mp4" />
               Your browser does not support the video tag.
             </StyledVideo>
           </VideoContainer>
@@ -181,7 +180,7 @@ const HowTo: React.FC = () => {
                   }}
                 >
                   <StepNumber>{index + 1}</StepNumber>
-                  <StepIcon sx={{ flexShrink: 0, mb: { xs: 1, md: 0 } }}>{step.icon}</StepIcon>
+                  <StepIcon sx={{ flexShrink: 0, mb: { xs: 1, md: 0 } }}>{iconMap[step.iconName]}</StepIcon>
                   <Typography
                     variant="h5"
                     component="h3"
@@ -224,11 +223,13 @@ const HowTo: React.FC = () => {
         </Box>
       </Box>
 
-      <Box textAlign="center" mt={6}>
-        <Typography variant="body1" color="text.secondary" sx={{ fontStyle: 'italic' }}>
-          💡 <strong>Pro Tip:</strong> For best results, use high-resolution images and experiment with different aspect ratios to find the perfect crop for your needs.
-        </Typography>
-      </Box>
+      {proTip && (
+        <Box textAlign="center" mt={6}>
+          <Typography variant="body1" color="text.secondary" sx={{ fontStyle: 'italic' }}>
+            💡 <strong>Pro Tip:</strong> {proTip}
+          </Typography>
+        </Box>
+      )}
     </HowToContainer>
   );
 };

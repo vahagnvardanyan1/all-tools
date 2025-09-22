@@ -6,6 +6,7 @@ import { styled } from '@mui/material/styles';
 import HowTo from '@/components/HowTo';
 import ValueItemisation from '@/components/ValueItemisation';
 import FAQ from '@/components/FAQ';
+import { cropFaqData, cropValueItems, cropHowToData } from '@/data/cropImageData';
 import UploadArea from '@/components/ImageCropper/UploadArea';
 import ImageCropper from '@/components/ImageCropper/ImageCropper';
 import CropControls from '@/components/ImageCropper/CropControls';
@@ -113,7 +114,11 @@ const CropImage = () => {
       {!imageSrc ? (
         <Box display="flex" flexDirection={{ xs: 'column', md: 'row' }} gap={8} alignItems={{ xs: 'center', md: 'center' }} sx={{ minHeight: { md: '400px' } }}>
           <Box flex={1} sx={{ order: { xs: 2, md: 1 } }}>
-            <DemoImagePreview show={showDemoImage} />
+            <DemoImagePreview
+              show={showDemoImage}
+              imageSrc="https://pastatic.picsart.com/cms-pastatic/fdddd077-f0b2-4011-8025-4f2469de9b92.png?type=webp&to=min&r=1200&q=90"
+              altText="Demo image for cropping"
+            />
           </Box>
           <Box flex={1} display="flex" justifyContent="center" alignItems="center" sx={{ order: { xs: 1, md: 2 } }}>
             <UploadArea onFileSelect={handleFileSelect} error={error} />
@@ -147,9 +152,9 @@ const CropImage = () => {
         </Box>
       )}
 
-      <ValueItemisation />
-      <HowTo />
-      <FAQ />
+      <ValueItemisation valueItems={cropValueItems} />
+      <HowTo {...cropHowToData} />
+      <FAQ faqData={cropFaqData} />
     </StyledContainer>
   );
 };

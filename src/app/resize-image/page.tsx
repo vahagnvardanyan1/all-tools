@@ -3,12 +3,13 @@
 import React, { useState, useCallback } from 'react';
 import { Typography, Container, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import HowToResize from '@/components/ImageResizer/HowToResize';
+import HowTo from '@/components/HowTo';
 import ValueItemisation from '@/components/ValueItemisation';
-import FAQResize from '@/components/ImageResizer/FAQResize';
-import UploadAreaResize from '@/components/ImageResizer/UploadAreaResize';
+import FAQ from '@/components/FAQ';
+import { resizeFaqData, resizeValueItems, resizeHowToData } from '@/data/resizeImageData';
+import UploadArea from '@/components/ImageCropper/UploadArea';
 import ResizeControls from '@/components/ImageResizer/ResizeControls';
-import DemoImagePreviewResize from '@/components/ImageResizer/DemoImagePreviewResize';
+import DemoImagePreview from '@/components/ImageCropper/DemoImagePreview';
 import { resizeImage, validateImageFile } from '@/components/ImageResizer/utils';
 
 interface ResizeSettings {
@@ -168,10 +169,14 @@ const ResizeImage = () => {
       {!imageSrc ? (
         <Box display="flex" flexDirection={{ xs: 'column', md: 'row' }} gap={8} alignItems={{ xs: 'center', md: 'center' }} sx={{ minHeight: { md: '400px' } }}>
           <Box flex={1} sx={{ order: { xs: 2, md: 1 } }}>
-            <DemoImagePreviewResize show={showDemoImage} />
+            <DemoImagePreview
+              show={showDemoImage}
+              imageSrc="https://pastatic.picsart.com/cms-pastatic/d9087e1d-8802-4a43-8587-c30d9f877b8b.png?type=webp&to=min&r=1200&q=90"
+              altText="Demo image for resizing"
+            />
           </Box>
           <Box flex={1} display="flex" justifyContent="center" alignItems="center" sx={{ order: { xs: 1, md: 2 } }}>
-            <UploadAreaResize onFileSelect={handleFileSelect} error={error} />
+            <UploadArea onFileSelect={handleFileSelect} error={error} />
           </Box>
         </Box>
       ) : (
@@ -182,6 +187,7 @@ const ResizeImage = () => {
             </Typography>
             <Box
               sx={{
+                position: 'relative',
                 display: 'inline-block',
                 borderRadius: 2,
                 overflow: 'hidden',
@@ -191,6 +197,7 @@ const ResizeImage = () => {
                 backgroundColor: '#f5f5f5',
               }}
             >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={imageSrc}
                 alt="Original image"
@@ -216,6 +223,7 @@ const ResizeImage = () => {
               </Typography>
               <Box
                 sx={{
+                  position: 'relative',
                   display: 'inline-block',
                   borderRadius: 2,
                   overflow: 'hidden',
@@ -225,6 +233,7 @@ const ResizeImage = () => {
                   backgroundColor: '#000',
                 }}
               >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={resizedImage}
                   alt="Resized preview"
@@ -252,9 +261,9 @@ const ResizeImage = () => {
         </Box>
       )}
 
-      <ValueItemisation />
-      <HowToResize />
-      <FAQResize />
+      <ValueItemisation valueItems={resizeValueItems} />
+      <HowTo {...resizeHowToData} />
+      <FAQ faqData={resizeFaqData} />
     </StyledContainer>
   );
 };

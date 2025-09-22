@@ -58,42 +58,17 @@ const AnswerText = styled(Typography)(({ theme }) => ({
   lineHeight: 1.6,
 }));
 
-const faqData = [
-  {
-    question: 'Is the image cropper really free to use?',
-    answer: 'Yes, our image cropper is completely free to use. You can crop as many images as you want without any cost or registration required.',
-  },
-  {
-    question: 'What image formats are supported?',
-    answer: 'We support all major image formats including JPG, PNG, and GIF. The maximum file size is 10MB per image.',
-  },
-  {
-    question: 'Will cropping reduce the quality of my image?',
-    answer: 'No, our cropping tool maintains the original quality of your image. We use advanced algorithms to ensure zero quality loss during the cropping process.',
-  },
-  {
-    question: 'Can I crop images on mobile devices?',
-    answer: 'Absolutely! Our image cropper is fully responsive and works perfectly on mobile devices, tablets, and desktops. The interface adapts to your screen size for the best experience.',
-  },
-  {
-    question: 'Do I need to create an account to use the cropper?',
-    answer: 'No account creation is required. You can start cropping images immediately without any registration or sign-up process.',
-  },
-  {
-    question: 'How do I download my cropped image?',
-    answer: 'After cropping your image, simply click the "Download" button. Your cropped image will be saved as a high-quality JPEG file to your device.',
-  },
-  {
-    question: 'Can I crop multiple images at once?',
-    answer: 'Currently, you can crop one image at a time. However, the process is very quick and you can easily crop multiple images by uploading them one by one.',
-  },
-  {
-    question: 'What aspect ratios are available?',
-    answer: 'You can choose from several preset aspect ratios including Free (custom), 1:1 (square), 4:3, 16:9, and 3:2. You can also crop freely without any aspect ratio constraints.',
-  },
-];
+interface FAQItem {
+  question: string;
+  answer: string;
+}
 
-const FAQ: React.FC = () => {
+interface FAQProps {
+  faqData: FAQItem[];
+  title?: string;
+}
+
+const FAQ: React.FC<FAQProps> = ({ faqData, title = 'Frequently Asked Questions' }) => {
   const [expanded, setExpanded] = useState<string | false>(false);
 
   const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
@@ -103,7 +78,7 @@ const FAQ: React.FC = () => {
   return (
     <FAQContainer maxWidth="md">
       <FAQTitle variant="h2" as="h2" sx={{ fontSize: { xs: '1.75rem', md: '3rem' } }}>
-        Frequently Asked Questions
+        {title}
       </FAQTitle>
 
       <Box>
