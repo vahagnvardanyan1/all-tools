@@ -22,13 +22,19 @@ interface ImageCropperProps {
   onRotationChange: (rotation: number) => void;
 }
 
-const CropContainer = styled(Box)({
+const CropContainer = styled(Box)(({ theme }) => ({
   position: 'relative',
   width: '100%',
   height: 400,
   backgroundColor: '#000',
-  borderRadius: 8,
-});
+  borderRadius: theme.spacing(1),
+  [theme.breakpoints.down('md')]: {
+    height: 400,
+  },
+  [theme.breakpoints.up('md')]: {
+    height: 400,
+  },
+}));
 
 const ImageCropper: React.FC<ImageCropperProps> = ({ imageSrc, crop, zoom, rotation, aspectRatio, onCropChange, onCropComplete, onZoomChange, onRotationChange }) => {
   const handleCropComplete = useCallback(
@@ -50,6 +56,13 @@ const ImageCropper: React.FC<ImageCropperProps> = ({ imageSrc, crop, zoom, rotat
         onCropComplete={handleCropComplete}
         onZoomChange={onZoomChange}
         onRotationChange={onRotationChange}
+        style={{
+          containerStyle: {
+            width: '100%',
+            height: '100%',
+            position: 'relative',
+          },
+        }}
       />
     </CropContainer>
   );
