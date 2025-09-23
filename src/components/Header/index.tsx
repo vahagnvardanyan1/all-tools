@@ -40,7 +40,7 @@ const Header = () => {
     >
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography variant="h6" component="div" sx={{ color: Texts.dark }}>
-          LOGO HERE
+          CROP IMAGE
         </Typography>
         <DesktopMenu onClose={onMenuClose} />
         <Box>
