@@ -54,8 +54,8 @@ export const cropValueItems = [
 export const cropHowToData = {
   title: 'How to Use the Image Cropper',
   subtitle: 'Follow these simple steps to crop your images like a pro in just a few clicks',
-  videoSrc: 'https://pastatic.picsart.com/cms-pastatic/3a27b55a-cee3-46c2-ac78-6c6aa8956d89.mp4',
-  videoPoster: 'https://pastatic.picsart.com/cms-pastatic/d80d073d-aac5-4256-830d-7aa246e84c11.png?type=webp&to=min&r=-1',
+  videoSrc: '',
+  videoPoster: '',
   proTip: 'For best results, use high-resolution images and experiment with different aspect ratios to find the perfect crop for your needs.',
   steps: [
     {

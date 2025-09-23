@@ -114,11 +114,7 @@ const CropImage = () => {
       {!imageSrc ? (
         <Box display="flex" flexDirection={{ xs: 'column', md: 'row' }} gap={8} alignItems={{ xs: 'center', md: 'center' }} sx={{ minHeight: { md: '400px' } }}>
           <Box flex={1} sx={{ order: { xs: 2, md: 1 } }}>
-            <DemoImagePreview
-              show={showDemoImage}
-              imageSrc="https://pastatic.picsart.com/cms-pastatic/fdddd077-f0b2-4011-8025-4f2469de9b92.png?type=webp&to=min&r=1200&q=90"
-              altText="Demo image for cropping"
-            />
+            <DemoImagePreview show={showDemoImage} imageSrc="" altText="Demo image for cropping" />
           </Box>
           <Box flex={1} display="flex" justifyContent="center" alignItems="center" sx={{ order: { xs: 1, md: 2 } }}>
             <UploadArea onFileSelect={handleFileSelect} error={error} />

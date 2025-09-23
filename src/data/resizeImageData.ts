@@ -64,8 +64,8 @@ export const resizeValueItems = [
 export const resizeHowToData = {
   title: 'How to Use the Image Resizer',
   subtitle: 'Follow these simple steps to resize your images professionally in just a few clicks',
-  videoSrc: 'https://pastatic.picsart.com/cms-pastatic/1594a2da-c5c7-4e33-906b-736e32d069e4.mp4',
-  videoPoster: 'https://pastatic.picsart.com/cms-pastatic/1d739fd1-bc0d-40b4-a247-cc208561f3c1.png?type=webp&to=min&r=-1',
+  videoSrc: '',
+  videoPoster: '',
   proTip: 'For best results, use high-resolution images and experiment with different sizes to find the perfect dimensions for your needs.',
   steps: [
     {

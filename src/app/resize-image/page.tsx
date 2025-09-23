@@ -169,11 +169,7 @@ const ResizeImage = () => {
       {!imageSrc ? (
         <Box display="flex" flexDirection={{ xs: 'column', md: 'row' }} gap={8} alignItems={{ xs: 'center', md: 'center' }} sx={{ minHeight: { md: '400px' } }}>
           <Box flex={1} sx={{ order: { xs: 2, md: 1 } }}>
-            <DemoImagePreview
-              show={showDemoImage}
-              imageSrc="https://pastatic.picsart.com/cms-pastatic/d9087e1d-8802-4a43-8587-c30d9f877b8b.png?type=webp&to=min&r=1200&q=90"
-              altText="Demo image for resizing"
-            />
+            <DemoImagePreview show={showDemoImage} imageSrc="" altText="Demo image for resizing" />
           </Box>
           <Box flex={1} display="flex" justifyContent="center" alignItems="center" sx={{ order: { xs: 1, md: 2 } }}>
             <UploadArea onFileSelect={handleFileSelect} error={error} />
