@@ -23,8 +23,39 @@ const openSans = OpenSans({
 });
 
 export const metadata: Metadata = {
-  title: 'Next.js App',
-  description: 'Using Montserrat + Open Sans',
+  title: 'Crop Image Online - Free Image Cropper & Editing Tools',
+  description: 'Crop images online for free with our easy-to-use image cropper. Resize, rotate, and optimize your images with multiple free image tools.',
+  keywords: ['crop image online', 'free image cropper', 'image editor', 'resize image', 'rotate image', 'photo tools', 'online image tools'],
+  authors: [{ name: 'Crop Image', url: 'https://cropsimage.com' }],
+  creator: 'Crop Image',
+  themeColor: '#ffffff',
+  metadataBase: new URL('https://cropsimage.com'),
+  openGraph: {
+    title: 'Crop Image Online - Free Image Cropper & Editing Tools',
+    description: 'Crop images online for free with our easy-to-use image cropper. Resize, rotate, and optimize your images with multiple free image tools.',
+    url: 'https://cropsimage.com',
+    siteName: 'ImageToolsPro',
+    images: [
+      {
+        url: 'https://i.ibb.co/6jB6RSJ/2025-09-23-21-16-31.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Crop Image Online - Free Image Tools',
+      },
+    ],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Crop Image Online - Free Image Cropper & Editing Tools',
+    description: 'Crop images online for free with our easy-to-use image cropper. Resize, rotate, and optimize your images with multiple free image tools.',
+    images: ['https://i.ibb.co/6jB6RSJ/2025-09-23-21-16-31.jpg'],
+  },
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
