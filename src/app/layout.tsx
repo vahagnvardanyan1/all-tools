@@ -1,6 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter, Open_Sans as OpenSans } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
 
 import AppRouterCacheProviderWrapper from '@/providers/AppRouterCacheProviderWrapper';
 
@@ -35,6 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </AppRouterCacheProviderWrapper>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
