@@ -114,7 +114,7 @@ const CropImage = () => {
       {!imageSrc ? (
         <Box display="flex" flexDirection={{ xs: 'column', md: 'row' }} gap={8} alignItems={{ xs: 'center', md: 'center' }} sx={{ minHeight: { md: '400px' } }}>
           <Box flex={1} sx={{ order: { xs: 2, md: 1 } }}>
-            <DemoImagePreview show={showDemoImage} imageSrc="" altText="Demo image for cropping" />
+            <DemoImagePreview show={showDemoImage} imageSrc="https://i.ibb.co/6jB6RSJ/2025-09-23-21-16-31.jpg" altText="Demo image for cropping" />
           </Box>
           <Box flex={1} display="flex" justifyContent="center" alignItems="center" sx={{ order: { xs: 1, md: 2 } }}>
             <UploadArea onFileSelect={handleFileSelect} error={error} />
