@@ -1,105 +1,76 @@
-import React from 'react';
-import { Box, Typography, Card, CardContent, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { CheckCircle, CloudUpload, CropRotate, Tune, Download, PhotoSizeSelectLarge, AspectRatio, CropFree } from '@mui/icons-material';
 
 const HowToContainer = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(8),
-  marginBottom: theme.spacing(4),
+  marginBottom: theme.spacing(8),
+  maxWidth: '800px',
+  margin: '0 auto',
 }));
 
-const VideoContainer = styled(Box)(({ theme }) => ({
-  borderRadius: theme.spacing(2),
-  overflow: 'hidden',
-}));
-
-const StyledVideo = styled('video')({
-  width: '100%',
-  height: 'auto',
-  display: 'block',
-});
-
-const StepCard = styled(Card)(({ theme }) => ({
-  width: '100%',
-  height: 80,
+const StepItem = styled(Box)<{ isActive?: boolean }>(({ theme, isActive }) => ({
+  borderLeft: `4px solid ${isActive ? theme.palette.primary.main : '#e0e0e0'}`,
+  paddingLeft: theme.spacing(3),
+  paddingTop: theme.spacing(3),
+  paddingBottom: isActive ? theme.spacing(6) : theme.spacing(3),
+  marginBottom: theme.spacing(2),
   cursor: 'pointer',
-  transition: 'all 0.3s ease-in-out',
+  transition: 'all 0.6s ease-in-out',
   position: 'relative',
   overflow: 'hidden',
-  display: 'flex',
-  [theme.breakpoints.down('md')]: {
-    height: 100,
-  },
-  '&:hover': {
-    transform: 'translateY(-8px)',
-    boxShadow: theme.shadows[8],
-    height: 200,
-  },
+  backgroundColor: isActive ? '#f8f9fa' : 'transparent',
 }));
 
-const StepIcon = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: 40,
-  height: 40,
-  borderRadius: '50%',
-  backgroundColor: theme.palette.primary.main,
-  color: theme.palette.primary.contrastText,
-  marginBottom: 0,
-  fontSize: 20,
-  transition: 'all 0.3s ease-in-out',
-  flexShrink: 0,
-  [theme.breakpoints.down('md')]: {
-    width: 50,
-    height: 50,
-    fontSize: 22,
-  },
-  '.step-card:hover &': {
-    width: 60,
-    height: 60,
-    fontSize: 24,
-    marginBottom: theme.spacing(2),
-  },
+const StepTitle = styled(Typography)(({ theme }) => ({
+  fontSize: '1.5rem',
+  fontWeight: 600,
+  color: '#1f2937',
+  marginBottom: theme.spacing(1),
 }));
 
-const StepNumber = styled(Typography)(({ theme }) => ({
-  position: 'absolute',
-  top: theme.spacing(2),
-  right: theme.spacing(2),
-  backgroundColor: theme.palette.primary.main,
-  color: theme.palette.primary.contrastText,
-  borderRadius: '50%',
-  width: 32,
-  height: 32,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  fontWeight: 'bold',
-  fontSize: '0.875rem',
-  zIndex: 2,
-}));
+const StepDescription = styled(Typography)({
+  fontSize: '1rem',
+  color: '#6b7280',
+  lineHeight: 1.6,
+});
 
-const HoverContent = styled(Box)(({ theme }) => ({
-  position: 'absolute',
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  backgroundColor: theme.palette.primary.main,
-  color: theme.palette.primary.contrastText,
-  padding: theme.spacing(2),
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  opacity: 0,
-  transform: 'translateY(100%)',
-  transition: 'all 0.3s ease-in-out',
+const StepDetails = styled(Box)<{ isVisible?: boolean }>(({ theme, isVisible }) => ({
+  marginTop: theme.spacing(2),
+  opacity: isVisible ? 1 : 0,
+  maxHeight: isVisible ? '200px' : 0,
+  transform: isVisible ? 'translateY(0)' : 'translateY(-10px)',
+  transition: 'all 0.6s ease-in-out',
   overflow: 'hidden',
-  '.step-card:hover &': {
-    opacity: 1,
-    transform: 'translateY(0)',
+}));
+
+const DetailsList = styled('ul')(({ theme }) => ({
+  margin: 0,
+  paddingLeft: theme.spacing(2),
+  color: '#6b7280',
+  '& li': {
+    marginBottom: theme.spacing(0.5),
+    fontSize: '0.9rem',
+    lineHeight: 1.5,
+  },
+}));
+
+const CropImageLink = styled(Typography)(({ theme }) => ({
+  fontSize: '1.1rem',
+  fontWeight: 600,
+  color: '#fff',
+  backgroundColor: '#8b5cf6',
+  cursor: 'pointer',
+  textDecoration: 'none',
+  padding: theme.spacing(1.5, 3),
+  borderRadius: '50px',
+  display: 'inline-block',
+  transition: 'all 0.3s ease',
+  boxShadow: '0 4px 14px rgba(139, 92, 246, 0.4)',
+  '&:hover': {
+    backgroundColor: '#7c3aed',
+    boxShadow: '0 6px 20px rgba(139, 92, 246, 0.6)',
+    transform: 'translateY(-2px)',
   },
 }));
 
@@ -110,117 +81,68 @@ interface HowToStep {
   details: string[];
 }
 
-const iconMap: Record<string, React.ReactNode> = {
-  CloudUpload: <CloudUpload />,
-  CropRotate: <CropRotate />,
-  Tune: <Tune />,
-  Download: <Download />,
-  PhotoSizeSelectLarge: <PhotoSizeSelectLarge />,
-  AspectRatio: <AspectRatio />,
-  CropFree: <CropFree />,
-};
-
 interface HowToProps {
   steps: HowToStep[];
   title: string;
-  subtitle: string;
-  videoSrc: string;
-  videoPoster: string;
+  subtitle?: string;
+  videoSrc?: string;
+  videoPoster?: string;
   proTip?: string;
 }
 
-const HowTo: React.FC<HowToProps> = ({ steps, title, subtitle, videoSrc, videoPoster, proTip }) => {
+const HowTo: React.FC<HowToProps> = ({ steps, title, subtitle, proTip }) => {
+  const [hoveredStep, setHoveredStep] = useState<number | null>(null);
+
+  const handleMouseEnter = (index: number) => {
+    setHoveredStep(index);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredStep(null);
+  };
+
+  const handleCropImageClick = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
   return (
     <HowToContainer>
-      <Box textAlign="center" mb={6}>
-        <Typography variant="h2" component="h2" gutterBottom sx={{ fontWeight: 700, color: 'primary.main', fontSize: { xs: '1.75rem', md: '3rem' } }}>
+      <Box mb={6} textAlign="center">
+        <Typography variant="h2" component="h2" sx={{ fontWeight: 700, color: '#1f2937', fontSize: { xs: '2rem', md: '2.5rem' }, marginBottom: subtitle ? 2 : 4 }}>
           {title}
         </Typography>
-        <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 600, mx: 'auto' }}>
-          {subtitle}
-        </Typography>
+        {subtitle && (
+          <Typography variant="body1" color="text.secondary" sx={{ fontSize: '1rem', lineHeight: 1.6 }}>
+            {subtitle}
+          </Typography>
+        )}
       </Box>
 
-      <Box display="flex" flexDirection={{ xs: 'column', md: 'row' }} gap={6} alignItems={{ xs: 'center', md: 'center' }} sx={{ minHeight: { md: '400px' } }}>
-        <Box
-          flex={1}
-          sx={{
-            order: { xs: 2, md: 1 },
-            width: '100%',
-            // maxWidth: { xs: '300px', md: '100%' },
-            mx: { xs: 'auto', md: 0 },
-            display: 'flex',
-            justifyContent: 'center',
-          }}
-        >
-          <VideoContainer sx={{ width: '100%' }}>
-            <StyledVideo autoPlay loop muted playsInline poster={videoPoster} preload="metadata">
-              <source src={videoSrc} type="video/mp4" />
-              Your browser does not support the video tag.
-            </StyledVideo>
-          </VideoContainer>
-        </Box>
+      <Box sx={{ width: '100%', mb: 6 }}>
+        {steps.map((step, index) => {
+          const isActive = hoveredStep === null ? index === 0 : hoveredStep === index;
 
-        <Box flex={1} sx={{ order: { xs: 1, md: 2 }, display: 'flex', alignItems: 'center', width: { xs: '100%', md: 'auto' } }}>
-          <Box display="flex" flexDirection="column" gap={4} sx={{ width: '100%' }}>
-            {steps.map((step, index) => (
-              <StepCard className="step-card" key={index}>
-                <CardContent
-                  sx={{
-                    position: 'relative',
-                    textAlign: 'center',
-                    p: 2,
-                    height: '100%',
-                    width: '100%',
-                    display: 'flex',
-                    flexDirection: { xs: 'column', md: 'row' },
-                    alignItems: 'center',
-                    justifyContent: { xs: 'center', md: 'flex-start' },
-                    gap: { xs: 1, md: 3 },
-                  }}
-                >
-                  <StepNumber>{index + 1}</StepNumber>
-                  <StepIcon sx={{ flexShrink: 0, mb: { xs: 1, md: 0 } }}>{iconMap[step.iconName]}</StepIcon>
-                  <Typography
-                    variant="h5"
-                    component="h3"
-                    sx={{
-                      fontWeight: 600,
-                      flex: 1,
-                      textAlign: { xs: 'center', md: 'left' },
-                      fontSize: { xs: '0.9rem', md: '1rem' },
-                      transition: 'all 0.3s ease-in-out',
-                      '.step-card:hover &': {
-                        fontSize: { xs: '1.1rem', md: '1.5rem' },
-                      },
-                    }}
-                  >
-                    {step.title}
-                  </Typography>
+          return (
+            <StepItem key={index} isActive={isActive} onMouseEnter={() => handleMouseEnter(index)} onMouseLeave={handleMouseLeave}>
+              <StepTitle>{step.title}</StepTitle>
+              <StepDescription>{step.description}</StepDescription>
+              <StepDetails isVisible={isActive}>
+                <DetailsList>
+                  {step.details.map((detail, detailIndex) => (
+                    <li key={detailIndex}>{detail}</li>
+                  ))}
+                </DetailsList>
+              </StepDetails>
+            </StepItem>
+          );
+        })}
+      </Box>
 
-                  <HoverContent>
-                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 600, mb: 1, fontSize: '1rem' }}>
-                      {step.title}
-                    </Typography>
-                    <Typography variant="body2" paragraph sx={{ textAlign: 'center', mb: 1, fontSize: '0.8rem' }}>
-                      {step.description}
-                    </Typography>
-                    <List dense sx={{ width: '100%' }}>
-                      {step.details.map((detail, detailIndex) => (
-                        <ListItem key={detailIndex} sx={{ px: 0, py: 0.25 }}>
-                          <ListItemIcon sx={{ minWidth: 20 }}>
-                            <CheckCircle sx={{ fontSize: 14, color: 'inherit' }} />
-                          </ListItemIcon>
-                          <ListItemText primary={detail} primaryTypographyProps={{ fontSize: '0.7rem', color: 'inherit' }} />
-                        </ListItem>
-                      ))}
-                    </List>
-                  </HoverContent>
-                </CardContent>
-              </StepCard>
-            ))}
-          </Box>
-        </Box>
+      <Box textAlign="center">
+        <CropImageLink onClick={handleCropImageClick}>Crop image</CropImageLink>
       </Box>
 
       {proTip && (

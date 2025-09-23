@@ -27,7 +27,7 @@ const Footer = () => {
   return (
     <FooterContainer>
       <Typography variant="body2" color="textSecondary" gutterBottom>
-        © {new Date().getFullYear()} My Company. All rights reserved.
+        © {new Date().getFullYear()} Crop Image. All rights reserved.
       </Typography>
       <Box>
         {navigationItems.map(item => (

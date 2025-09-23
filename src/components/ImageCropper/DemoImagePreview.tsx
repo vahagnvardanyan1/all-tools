@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import Image from 'next/image';
 
 interface DemoImagePreviewProps {
   show: boolean;
@@ -24,7 +25,7 @@ const DemoImagePreview: React.FC<DemoImagePreviewProps> = ({ show, imageSrc, alt
 
   return (
     <DemoImageContainer>
-      <DemoImage src={imageSrc} alt={altText} loading="lazy" />
+      <DemoImage src={imageSrc} alt={altText} loading="lazy" fetchPriority="high" />
     </DemoImageContainer>
   );
 };

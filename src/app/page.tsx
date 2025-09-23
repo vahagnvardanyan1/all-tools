@@ -6,6 +6,7 @@ import { styled } from '@mui/material/styles';
 import HowTo from '@/components/HowTo';
 import ValueItemisation from '@/components/ValueItemisation';
 import FAQ from '@/components/FAQ';
+import EditorPreview from '@/components/EditorPreview';
 import { cropFaqData, cropValueItems, cropHowToData } from '@/data/cropImageData';
 import UploadArea from '@/components/ImageCropper/UploadArea';
 import ImageCropper from '@/components/ImageCropper/ImageCropper';
@@ -150,6 +151,7 @@ const CropImage = () => {
 
       <ValueItemisation valueItems={cropValueItems} />
       <HowTo {...cropHowToData} />
+      <EditorPreview />
       <FAQ faqData={cropFaqData} />
     </StyledContainer>
   );
