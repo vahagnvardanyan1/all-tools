@@ -1,6 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Inter, Open_Sans as OpenSans } from 'next/font/google';
+// import { Inter, Open_Sans as OpenSans } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
 
 import AppRouterCacheProviderWrapper from '@/providers/AppRouterCacheProviderWrapper';
@@ -8,19 +8,19 @@ import AppRouterCacheProviderWrapper from '@/providers/AppRouterCacheProviderWra
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  weight: ['400', '700'],
-  display: 'swap',
-});
+// const inter = Inter({
+//   subsets: ['latin'],
+//   variable: '--font-inter',
+//   weight: ['400', '700'],
+//   display: 'swap',
+// });
 
-const openSans = OpenSans({
-  subsets: ['latin'],
-  variable: '--font-open-sans',
-  weight: ['400', '700'],
-  display: 'swap',
-});
+// const openSans = OpenSans({
+//   subsets: ['latin'],
+//   variable: '--font-open-sans',
+//   weight: ['400', '700'],
+//   display: 'swap',
+// });
 
 export const metadata: Metadata = {
   title: 'Crop Image Online - Free Image Cropper & Editing Tools',
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${openSans.variable}`}>
+    <html lang="en" >
       <body>
         <AppRouterCacheProviderWrapper>
           <Header />

@@ -1,7 +1,8 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef, useEffect } from 'react';
 import { Box } from '@mui/material';
 import { styled, useTheme } from '@mui/material/styles';
-import Cropper from 'react-easy-crop';
+import Cropper, { ReactCropperElement } from 'react-cropper';
+import 'cropperjs/dist/cropper.css';
 
 interface CropArea {
   x: number;
@@ -29,6 +30,7 @@ const CropContainer = styled(Box)(({ theme }) => ({
   backgroundColor: '#E5E7EB',
   border: '1px solid #D1D5DB',
   borderRadius: theme.spacing(2),
+  overflow: 'hidden',
   [theme.breakpoints.down('md')]: {
     height: 400,
   },
@@ -39,39 +41,55 @@ const CropContainer = styled(Box)(({ theme }) => ({
 
 const ImageCropper: React.FC<ImageCropperProps> = ({ imageSrc, crop, zoom, rotation, aspectRatio, onCropChange, onCropComplete, onZoomChange, onRotationChange }) => {
   const theme = useTheme();
-  const handleCropComplete = useCallback(
-    (croppedArea: CropArea, croppedAreaPixels: CropArea) => {
-      onCropComplete(croppedArea, croppedAreaPixels);
-    },
-    [onCropComplete],
-  );
+  const cropperRef = useRef<ReactCropperElement>(null);
+
+  // Sync aspect ratio
+  useEffect(() => {
+    const instance = cropperRef.current?.cropper;
+    if (instance) {
+      if (aspectRatio) instance.setAspectRatio(aspectRatio);
+      else instance.setAspectRatio(NaN);
+      instance.rotateTo(rotation || 0);
+    }
+  }, [aspectRatio, rotation]);
 
   return (
     <CropContainer>
       <Cropper
-        image={imageSrc}
-        crop={crop}
-        zoom={zoom}
-        aspect={aspectRatio || undefined}
-        rotation={rotation}
-        onCropChange={onCropChange}
-        onCropComplete={handleCropComplete}
-        onZoomChange={onZoomChange}
-        onRotationChange={onRotationChange}
-        showGrid
-        style={{
-          containerStyle: {
-            width: '100%',
-            height: '100%',
-            position: 'relative',
-          },
-          cropAreaStyle: {
-            boxShadow: '0 0 0 9999em rgba(0,0,0,0)',
-            border: `3px dashed ${theme.palette.primary.main}`,
-            borderRadius: 18,
-          },
+        ref={cropperRef}
+        src={imageSrc}
+        viewMode={1}
+        dragMode="move"
+        autoCropArea={1}
+        background={false}
+        guides={true}
+        responsive
+        checkOrientation={false}
+        style={{ width: '100%', height: '100%' }}
+        cropend={() => {
+          const instance = cropperRef.current?.cropper;
+          if (!instance) return;
+          const data = instance.getData(true);
+          const canvasData = instance.getCroppedCanvas();
+          const pixels = { x: Math.round(data.x), y: Math.round(data.y), width: Math.round(data.width), height: Math.round(data.height) } as any;
+          onCropComplete(pixels, pixels);
         }}
       />
+
+      <style jsx global>{`
+        /* Minimal, clean crop styling scoped to this component */
+        .cropper-view-box,
+        .cropper-face { border-radius: 12px; }
+        /* Solid border and large handles for easier grabbing */
+        .cropper-view-box { border: 2px solid ${theme.palette.primary.main}; outline: none; }
+        .cropper-point { background-color: ${theme.palette.primary.main}; opacity: 1; }
+        /* Hide edge midpoints; show only corner handles */
+        .cropper-point.point-e, .cropper-point.point-n, .cropper-point.point-w, .cropper-point.point-s { width: 0; height: 0; opacity: 0; }
+        /* Big, easy-to-grab corner handles */
+        .cropper-point.point-ne, .cropper-point.point-nw, .cropper-point.point-se, .cropper-point.point-sw {
+          width: 18px; height: 18px; border-radius: 6px; border: 2px solid #ffffff; box-shadow: 0 0 0 2px rgba(0,0,0,0.18);
+        }
+      `}</style>
 
     </CropContainer>
   );

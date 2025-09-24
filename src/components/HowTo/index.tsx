@@ -153,12 +153,12 @@ const HowTo: React.FC<HowToProps> = ({ steps, title, subtitle, videoSrc, videoPo
             justifyContent: 'center',
           }}
         >
-          <VideoContainer sx={{ width: '100%' }}>
+          {/* <VideoContainer sx={{ width: '100%' }}>
             <StyledVideo autoPlay loop muted playsInline poster={videoPoster} preload="metadata">
               <source src={videoSrc} type="video/mp4" />
               Your browser does not support the video tag.
-            </StyledVideo>
-          </VideoContainer>
+            </StyledVideo> */}
+          {/* </VideoContainer> */}
         </Box>
 
         <Box flex={1} sx={{ order: { xs: 1, md: 2 }, display: 'flex', alignItems: 'center', width: { xs: '100%', md: 'auto' } }}>
