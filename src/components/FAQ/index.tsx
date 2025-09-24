@@ -6,56 +6,91 @@ import { ExpandMore } from '@mui/icons-material';
 const FAQContainer = styled(Container)(({ theme }) => ({
   marginTop: theme.spacing(8),
   marginBottom: theme.spacing(8),
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'column',
 }));
 
 const FAQTitle = styled(Typography)(({ theme }) => ({
-  textAlign: 'center',
   marginBottom: theme.spacing(6),
   fontWeight: 700,
-  color: theme.palette.primary.main,
+  color: '#1f2937',
+  fontSize: '2.25rem',
+  lineHeight: 1.2,
+  textAlign: 'center',
+  [theme.breakpoints.down('md')]: {
+    fontSize: '1.875rem',
+  },
 }));
 
-const StyledAccordion = styled(Accordion)(({ theme }) => ({
-  marginBottom: theme.spacing(2),
-  borderRadius: theme.spacing(1),
-  boxShadow: theme.shadows[2],
+const StyledAccordion = styled(Accordion, {
+  shouldForwardProp: prop => prop !== 'isExpanded',
+})<{ isExpanded?: boolean }>(({ theme, isExpanded }) => ({
+  backgroundColor: 'transparent',
+  boxShadow: 'none',
+  border: 'none',
+  borderBottom: '1px solid #e5e7eb',
+  borderRadius: 0,
+  margin: 0,
   '&:before': {
     display: 'none',
   },
+  '&:last-child': {
+    borderBottom: 'none',
+  },
   '&.Mui-expanded': {
-    margin: `0 0 ${theme.spacing(2)}px 0`,
+    margin: 0,
+    backgroundColor: 'transparent',
   },
 }));
 
 const StyledAccordionSummary = styled(AccordionSummary)(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
-  borderRadius: theme.spacing(1),
-  padding: theme.spacing(2, 3),
+  backgroundColor: 'transparent',
+  padding: theme.spacing(3, 0),
+  minHeight: 'auto',
   '&.Mui-expanded': {
     minHeight: 'auto',
   },
   '& .MuiAccordionSummary-content': {
-    margin: theme.spacing(1, 0),
+    margin: 0,
     '&.Mui-expanded': {
-      margin: theme.spacing(1, 0),
+      margin: 0,
+    },
+  },
+  '& .MuiAccordionSummary-expandIconWrapper': {
+    color: '#6b7280',
+    '&.Mui-expanded': {
+      transform: 'rotate(180deg)',
     },
   },
 }));
 
 const QuestionText = styled(Typography)(({ theme }) => ({
-  fontWeight: 600,
-  color: theme.palette.text.primary,
-  fontSize: '1.1rem',
+  fontWeight: 500,
+  color: '#1f2937',
+  fontSize: '1.125rem',
+  lineHeight: 1.5,
+  flex: 1,
+  paddingRight: theme.spacing(2),
 }));
 
 const StyledAccordionDetails = styled(AccordionDetails)(({ theme }) => ({
-  padding: theme.spacing(2, 3, 3, 3),
-  backgroundColor: theme.palette.background.default,
+  padding: theme.spacing(0, 0, 3, 0),
+  backgroundColor: 'transparent',
+}));
+
+const StyledContainer = styled(Box)(() => ({
+  maxWidth: '80%',
+  display: 'flex',
+  justifyContent: 'center',
+  flexDirection: 'column',
 }));
 
 const AnswerText = styled(Typography)(({ theme }) => ({
-  color: theme.palette.text.secondary,
+  color: '#6b7280',
   lineHeight: 1.6,
+  fontSize: '1rem',
 }));
 
 interface FAQItem {
@@ -76,23 +111,26 @@ const FAQ: React.FC<FAQProps> = ({ faqData, title = 'Frequently Asked Questions'
   };
 
   return (
-    <FAQContainer maxWidth="md">
-      <FAQTitle variant="h2" as="h2" sx={{ fontSize: { xs: '1.75rem', md: '3rem' } }}>
-        {title}
-      </FAQTitle>
+    <FAQContainer>
+      <FAQTitle variant="h2">{title}</FAQTitle>
 
-      <Box>
-        {faqData.map((faq, index) => (
-          <StyledAccordion key={index} expanded={expanded === `panel${index}`} onChange={handleChange(`panel${index}`)}>
-            <StyledAccordionSummary expandIcon={<ExpandMore />} aria-controls={`panel${index}bh-content`} id={`panel${index}bh-header`}>
-              <QuestionText>{faq.question}</QuestionText>
-            </StyledAccordionSummary>
-            <StyledAccordionDetails>
-              <AnswerText>{faq.answer}</AnswerText>
-            </StyledAccordionDetails>
-          </StyledAccordion>
-        ))}
-      </Box>
+      <StyledContainer>
+        {faqData.map((faq, index) => {
+          const panelId = `panel${index}`;
+          const isExpanded = expanded === panelId;
+
+          return (
+            <StyledAccordion key={index} expanded={isExpanded} onChange={handleChange(panelId)} isExpanded={isExpanded}>
+              <StyledAccordionSummary expandIcon={<ExpandMore />} aria-controls={`${panelId}-content`} id={`${panelId}-header`}>
+                <QuestionText>{faq.question}</QuestionText>
+              </StyledAccordionSummary>
+              <StyledAccordionDetails>
+                <AnswerText>{faq.answer}</AnswerText>
+              </StyledAccordionDetails>
+            </StyledAccordion>
+          );
+        })}
+      </StyledContainer>
     </FAQContainer>
   );
 };
