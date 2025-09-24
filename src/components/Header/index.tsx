@@ -44,8 +44,19 @@ const Header = () => {
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Image src="/images/logo.png" alt="Logo" width={60} height={60} style={{ width: 'auto', height: '60px' }} />
-          <Typography variant="h6" component="div" sx={{ color: '#8b5cf6', fontWeight: 600 }}>
-            Crop Image
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{
+              background: 'linear-gradient(90deg, #2563EB 0%, #7C3AED 100%)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              color: 'transparent', // hide solid color
+              WebkitTextFillColor: 'transparent',
+              fontWeight: 600,
+            }}
+          >
+            Cropper
           </Typography>
         </Box>
         <DesktopMenu onClose={onMenuClose} />
