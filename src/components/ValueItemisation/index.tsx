@@ -37,6 +37,8 @@ const ValueIcon = styled(Box)(({ theme }) => ({
   margin: '0 auto',
   marginBottom: theme.spacing(3),
   fontSize: 36,
+  background: 'linear-gradient(90deg, #2563EB 0%, #7C3AED 100%)',
+
 }));
 
 const ValueTitle = styled(Typography)(({ theme }) => ({
