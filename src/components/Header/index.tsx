@@ -51,7 +51,7 @@ const Header = () => {
         <DesktopMenu onClose={onMenuClose} />
         <Box>
           {isMobile && (
-            <IconButton color="inherit" onClick={onMenuOpen}>
+            <IconButton aria-label="header burger button" tabIndex={0} color="inherit" onClick={onMenuOpen}>
               <MenuIcon sx={{ color: Texts.dark }} />
             </IconButton>
           )}

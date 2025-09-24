@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     siteName: 'ImageToolsPro',
     images: [
       {
-        url: 'https://i.ibb.co/6jB6RSJ/2025-09-23-21-16-31.jpg',
+        url: 'https://i.ibb.co/Q3PrgT0V/Portrait-Cropping-Demonstration.webp',
         width: 1200,
         height: 630,
         alt: 'Crop Image Online - Free Image Tools',
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Crop Image Online - Free Image Cropper & Editing Tools',
     description: 'Crop images online for free with our easy-to-use image cropper. Resize, rotate, and optimize your images with multiple free image tools.',
-    images: ['https://i.ibb.co/6jB6RSJ/2025-09-23-21-16-31.jpg'],
+    images: ['https://i.ibb.co/Q3PrgT0V/Portrait-Cropping-Demonstration.webp'],
   },
   icons: {
     icon: '/favicon.ico',
