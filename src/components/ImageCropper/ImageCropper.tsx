@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Box } from '@mui/material';
 import { styled, useTheme } from '@mui/material/styles';
 import Cropper, { ReactCropperElement } from 'react-cropper';
@@ -39,7 +39,7 @@ const CropContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-const ImageCropper: React.FC<ImageCropperProps> = ({ imageSrc, crop, zoom, rotation, aspectRatio, onCropChange, onCropComplete, onZoomChange, onRotationChange }) => {
+const ImageCropper: React.FC<ImageCropperProps> = ({ imageSrc, rotation, aspectRatio, onCropComplete }) => {
   const theme = useTheme();
   const cropperRef = useRef<ReactCropperElement>(null);
 
@@ -70,8 +70,7 @@ const ImageCropper: React.FC<ImageCropperProps> = ({ imageSrc, crop, zoom, rotat
           const instance = cropperRef.current?.cropper;
           if (!instance) return;
           const data = instance.getData(true);
-          const canvasData = instance.getCroppedCanvas();
-          const pixels = { x: Math.round(data.x), y: Math.round(data.y), width: Math.round(data.width), height: Math.round(data.height) } as any;
+          const pixels = { x: Math.round(data.x), y: Math.round(data.y), width: Math.round(data.width), height: Math.round(data.height) };
           onCropComplete(pixels, pixels);
         }}
       />
@@ -79,18 +78,39 @@ const ImageCropper: React.FC<ImageCropperProps> = ({ imageSrc, crop, zoom, rotat
       <style jsx global>{`
         /* Minimal, clean crop styling scoped to this component */
         .cropper-view-box,
-        .cropper-face { border-radius: 12px; }
+        .cropper-face {
+          border-radius: 12px;
+        }
         /* Solid border and large handles for easier grabbing */
-        .cropper-view-box { border: 2px solid ${theme.palette.primary.main}; outline: none; }
-        .cropper-point { background-color: ${theme.palette.primary.main}; opacity: 1; }
+        .cropper-view-box {
+          border: 2px solid ${theme.palette.primary.main};
+          outline: none;
+        }
+        .cropper-point {
+          background-color: ${theme.palette.primary.main};
+          opacity: 1;
+        }
         /* Hide edge midpoints; show only corner handles */
-        .cropper-point.point-e, .cropper-point.point-n, .cropper-point.point-w, .cropper-point.point-s { width: 0; height: 0; opacity: 0; }
+        .cropper-point.point-e,
+        .cropper-point.point-n,
+        .cropper-point.point-w,
+        .cropper-point.point-s {
+          width: 0;
+          height: 0;
+          opacity: 0;
+        }
         /* Big, easy-to-grab corner handles */
-        .cropper-point.point-ne, .cropper-point.point-nw, .cropper-point.point-se, .cropper-point.point-sw {
-          width: 18px; height: 18px; border-radius: 6px; border: 2px solid #ffffff; box-shadow: 0 0 0 2px rgba(0,0,0,0.18);
+        .cropper-point.point-ne,
+        .cropper-point.point-nw,
+        .cropper-point.point-se,
+        .cropper-point.point-sw {
+          width: 18px;
+          height: 18px;
+          border-radius: 6px;
+          border: 2px solid #ffffff;
+          box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.18);
         }
       `}</style>
-
     </CropContainer>
   );
 };

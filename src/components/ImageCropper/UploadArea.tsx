@@ -30,8 +30,7 @@ const UploadAreaContainer = styled(Paper, {
     cursor: 'pointer',
     transition: 'all 0.3s ease',
     // soft UI-matching background gradient (indigo/purple tint)
-    backgroundImage:
-      'linear-gradient(145deg, #F5F3FF 0%, #EDE9FE 35%, #E9D5FF 70%, #DBEAFE 100%)',
+    backgroundImage: 'linear-gradient(145deg, #F5F3FF 0%, #EDE9FE 35%, #E9D5FF 70%, #DBEAFE 100%)',
     backdropFilter: 'blur(10px)',
     boxShadow: '0 24px 48px rgba(17,24,39,0.08), inset 0 1px 0 rgba(255,255,255,0.6)',
     position: 'relative',
@@ -42,15 +41,14 @@ const UploadAreaContainer = styled(Paper, {
     '&::after': {
       content: '""',
       position: 'absolute',
-      inset: theme.spacing(2.5), 
+      inset: theme.spacing(2.5),
       border: `3px dashed ${dashColor}`,
       borderRadius: theme.spacing(3.5),
       pointerEvents: 'none',
       zIndex: 0,
     },
     '&:hover': {
-      background:
-        'linear-gradient(135deg, rgba(99,102,241,0.14) 0%, rgba(147,51,234,0.12) 50%, rgba(76,29,149,0.10) 100%), #ffffff',
+      background: 'linear-gradient(135deg, rgba(99,102,241,0.14) 0%, rgba(147,51,234,0.12) 50%, rgba(76,29,149,0.10) 100%), #ffffff',
       boxShadow: '0 16px 48px rgba(0, 0, 0, 0.16)',
       transform: 'translateY(-2px)',
     },
@@ -135,21 +133,25 @@ const UploadArea: React.FC<UploadAreaComponentProps> = ({
 
   const defaultSubtitle = (
     <>
-      <Box component="span" sx={{ 
+      <Box
+        component="span"
+        sx={{
           backgroundImage: 'linear-gradient(90deg, #2563EB 0%, #7C3AED 100%)',
           WebkitBackgroundClip: 'text',
           backgroundClip: 'text',
-          WebkitTextFillColor: 'transparent', 
-          color: 'transparent',               
-          display: 'inline-block',   
-         fontWeight: 800 }}>
+          WebkitTextFillColor: 'transparent',
+          color: 'transparent',
+          display: 'inline-block',
+          fontWeight: 800,
+        }}
+      >
         browse to upload
       </Box>
     </>
   );
 
   return (
-    <Box >
+    <Box>
       {error && (
         <Alert severity="error" sx={{ mb: 2 }}>
           {error}
@@ -172,7 +174,7 @@ const UploadArea: React.FC<UploadAreaComponentProps> = ({
           minHeight: wide ? { xs: 240, md: 300 } : { xs: 240, md: 320 },
           width: { xs: '100%', sm: 'auto' },
           mx: 'auto',
-          margin: 0
+          margin: 0,
         }}
       >
         <Typography
@@ -183,10 +185,10 @@ const UploadArea: React.FC<UploadAreaComponentProps> = ({
             color: '#242424',
             mb: 1,
             fontSize: 'clamp(1.5rem, 2.8vw, 2rem)',
-            letterSpacing: '-0.04em',  
+            letterSpacing: '-0.04em',
             lineHeight: '1.3',
             textAlign: 'center',
-            flexWrap : 'nowrap'
+            flexWrap: 'nowrap',
           }}
         >
           {title}
@@ -211,10 +213,10 @@ const UploadArea: React.FC<UploadAreaComponentProps> = ({
             fontSize: 'clamp(1.25rem, 2.2vw, 1.75rem)',
             mb: 1,
             textAlign: 'center',
-            letterSpacing: '-0.04em',  
+            letterSpacing: '-0.04em',
             lineHeight: '1.3',
-            flexWrap : 'nowrap',
-            color : '#242424'
+            flexWrap: 'nowrap',
+            color: '#242424',
           }}
         >
           {subtitle ?? defaultSubtitle}
@@ -267,15 +269,11 @@ const UploadArea: React.FC<UploadAreaComponentProps> = ({
         >
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.25 }}>
             <CheckCircle sx={{ color: 'success.main', fontSize: 20 }} />
-            <Typography sx={{ color: '#111827', fontWeight: 600, fontSize: 'clamp(0.9rem, 1.4vw, 1rem)' }}>
-              Free to use
-            </Typography>
+            <Typography sx={{ color: '#111827', fontWeight: 600, fontSize: 'clamp(0.9rem, 1.4vw, 1rem)' }}>Free to use</Typography>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.25 }}>
             <CheckCircle sx={{ color: 'success.main', fontSize: 20 }} />
-            <Typography sx={{ color: '#111827', fontWeight: 600, fontSize: 'clamp(0.9rem, 1.4vw, 1rem)' }}>
-              No credit card required
-            </Typography>
+            <Typography sx={{ color: '#111827', fontWeight: 600, fontSize: 'clamp(0.9rem, 1.4vw, 1rem)' }}>No credit card required</Typography>
           </Box>
         </Box>
         <HiddenInput ref={fileInputRef} type="file" accept="image/*" onChange={handleInputChange} />

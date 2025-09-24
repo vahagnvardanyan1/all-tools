@@ -26,7 +26,7 @@ const FAQTitle = styled(Typography)(({ theme }) => ({
 
 const StyledAccordion = styled(Accordion, {
   shouldForwardProp: prop => prop !== 'isExpanded',
-})<{ isExpanded?: boolean }>(({ theme, isExpanded }) => ({
+})<{ isExpanded?: boolean }>(() => ({
   backgroundColor: 'transparent',
   boxShadow: 'none',
   border: 'none',
@@ -87,7 +87,7 @@ const StyledContainer = styled(Box)(() => ({
   flexDirection: 'column',
 }));
 
-const AnswerText = styled(Typography)(({ theme }) => ({
+const AnswerText = styled(Typography)(() => ({
   color: '#6b7280',
   lineHeight: 1.6,
   fontSize: '1rem',

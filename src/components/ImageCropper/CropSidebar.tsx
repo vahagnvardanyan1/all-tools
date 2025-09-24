@@ -25,7 +25,7 @@ const RatioTile = styled(ButtonBase)(({ theme }) => ({
   position: 'relative',
   '&:hover': {
     borderColor: theme.palette.text.disabled,
-    boxShadow: '0 2px 6px rgba(0,0,0,0.06)'
+    boxShadow: '0 2px 6px rgba(0,0,0,0.06)',
   },
 }));
 
@@ -39,7 +39,9 @@ const CropSidebar: React.FC<CropSidebarProps> = ({ aspectRatio, onAspectRatioCha
 
   return (
     <Box sx={{ position: 'relative' }}>
-      <Typography variant="subtitle2" sx={{ color: 'text.secondary', mb: 1 }}>Aspect ratio</Typography>
+      <Typography variant="subtitle2" sx={{ color: 'text.secondary', mb: 1 }}>
+        Aspect ratio
+      </Typography>
       <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', mb: 2 }}>
         {ratios.map(item => {
           const isActive = item.value === aspectRatio;
@@ -50,9 +52,7 @@ const CropSidebar: React.FC<CropSidebarProps> = ({ aspectRatio, onAspectRatioCha
                 sx={{
                   outline: 'none',
                   border: isActive ? '2px solid transparent' : undefined,
-                  backgroundImage: isActive
-                    ? 'linear-gradient(#ffffff,#ffffff), linear-gradient(90deg, #2563EB 0%, #7C3AED 100%)'
-                    : undefined,
+                  backgroundImage: isActive ? 'linear-gradient(#ffffff,#ffffff), linear-gradient(90deg, #2563EB 0%, #7C3AED 100%)' : undefined,
                   backgroundOrigin: isActive ? 'border-box' : undefined,
                   backgroundClip: isActive ? 'padding-box, border-box' : undefined,
                   boxShadow: isActive ? `0 4px 14px rgba(0,0,0,0.08)` : '0 1px 2px rgba(0,0,0,0.04)',
@@ -61,9 +61,13 @@ const CropSidebar: React.FC<CropSidebarProps> = ({ aspectRatio, onAspectRatioCha
                 {/* Simple box to visually hint orientation */}
                 <Box sx={{ width: 44, height: 44, borderRadius: 1, border: '2px solid', borderColor: isActive ? 'primary.main' : 'divider', aspectRatio: item.value ? `${item.value}` : undefined }} />
               </RatioTile>
-              <Typography variant="body2" sx={{ mt: 1, fontWeight: 600 }}>{item.sub || item.label}</Typography>
+              <Typography variant="body2" sx={{ mt: 1, fontWeight: 600 }}>
+                {item.sub || item.label}
+              </Typography>
               {item.sub && (
-                <Typography variant="caption" color="text.secondary">{item.label}</Typography>
+                <Typography variant="caption" color="text.secondary">
+                  {item.label}
+                </Typography>
               )}
             </Box>
           );
@@ -112,24 +116,17 @@ const CropSidebar: React.FC<CropSidebarProps> = ({ aspectRatio, onAspectRatioCha
       </Box>
 
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.25 }}>
-            <CheckCircle sx={{ color: 'success.main', fontSize: 20 }} />
-            <Typography sx={{ color: '#111827', fontWeight: 600, fontSize: 'clamp(0.9rem, 1.4vw, 1rem)' }}>
-              Free to use
-            </Typography>
-          </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.25 }}>
-            <CheckCircle sx={{ color: 'success.main', fontSize: 20 }} />
-            <Typography sx={{ color: '#111827', fontWeight: 600, fontSize: 'clamp(0.9rem, 1.4vw, 1rem)' }}>
-               No credit card required
-            </Typography>
-          </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.25 }}>
+          <CheckCircle sx={{ color: 'success.main', fontSize: 20 }} />
+          <Typography sx={{ color: '#111827', fontWeight: 600, fontSize: 'clamp(0.9rem, 1.4vw, 1rem)' }}>Free to use</Typography>
+        </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.25 }}>
+          <CheckCircle sx={{ color: 'success.main', fontSize: 20 }} />
+          <Typography sx={{ color: '#111827', fontWeight: 600, fontSize: 'clamp(0.9rem, 1.4vw, 1rem)' }}>No credit card required</Typography>
+        </Box>
       </Box>
     </Box>
   );
-
 };
 
 export default CropSidebar;
-
-
