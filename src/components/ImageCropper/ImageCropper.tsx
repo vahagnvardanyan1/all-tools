@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { Box } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
 import Cropper from 'react-easy-crop';
 
 interface CropArea {
@@ -26,8 +26,9 @@ const CropContainer = styled(Box)(({ theme }) => ({
   position: 'relative',
   width: '100%',
   height: 400,
-  backgroundColor: '#000',
-  borderRadius: theme.spacing(1),
+  backgroundColor: '#E5E7EB',
+  border: '1px solid #D1D5DB',
+  borderRadius: theme.spacing(2),
   [theme.breakpoints.down('md')]: {
     height: 400,
   },
@@ -37,6 +38,7 @@ const CropContainer = styled(Box)(({ theme }) => ({
 }));
 
 const ImageCropper: React.FC<ImageCropperProps> = ({ imageSrc, crop, zoom, rotation, aspectRatio, onCropChange, onCropComplete, onZoomChange, onRotationChange }) => {
+  const theme = useTheme();
   const handleCropComplete = useCallback(
     (croppedArea: CropArea, croppedAreaPixels: CropArea) => {
       onCropComplete(croppedArea, croppedAreaPixels);
@@ -56,14 +58,21 @@ const ImageCropper: React.FC<ImageCropperProps> = ({ imageSrc, crop, zoom, rotat
         onCropComplete={handleCropComplete}
         onZoomChange={onZoomChange}
         onRotationChange={onRotationChange}
+        showGrid
         style={{
           containerStyle: {
             width: '100%',
             height: '100%',
             position: 'relative',
           },
+          cropAreaStyle: {
+            boxShadow: '0 0 0 9999em rgba(0,0,0,0)',
+            border: `3px dashed ${theme.palette.primary.main}`,
+            borderRadius: 18,
+          },
         }}
       />
+
     </CropContainer>
   );
 };
