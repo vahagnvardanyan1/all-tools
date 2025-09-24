@@ -1,0 +1,13 @@
+# *
+User-agent: *
+Allow: /
+
+# *
+User-agent: *
+Disallow: /resize-image
+
+# Host
+Host: https://cropsimage.com
+
+# Sitemaps
+Sitemap: https://cropsimage.com/sitemap.xml
