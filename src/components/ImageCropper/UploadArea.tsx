@@ -72,7 +72,7 @@ const UploadArea: React.FC<UploadAreaComponentProps> = ({
   title = 'Drag & drop an image',
   subtitle,
   buttonText = 'Choose Image',
-  supportedFormats = 'Supports: JPG, PNG, GIF (Max 10MB)',
+  supportedFormats = 'Supports: JPG, PNG, GIF (Max 40MB)',
   wide = false,
 }) => {
   const [isDragActive, setIsDragActive] = React.useState(false);
@@ -88,8 +88,8 @@ const UploadArea: React.FC<UploadAreaComponentProps> = ({
         return;
       }
 
-      // Validate file size (max 10MB)
-      if (file.size > 10 * 1024 * 1024) {
+      // Validate file size (max 40MB)
+      if (file.size > 40 * 1024 * 1024) {
         // Error handling will be done by parent component
         return;
       }

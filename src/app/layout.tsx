@@ -3,23 +3,42 @@ import type { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/next';
 
 import AppRouterCacheProviderWrapper from '@/providers/AppRouterCacheProviderWrapper';
-
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import CookiesPopup from '@/components/CookiesPopup';
 
 export const metadata: Metadata = {
   title: 'Crop Image Online - Free Image Cropper & Editing Tools',
   description: 'Crop images online for free with our easy-to-use image cropper. Resize, rotate, and optimize your images with multiple free image tools.',
-  keywords: ['crop image online', 'free image cropper', 'image editor', 'resize image', 'rotate image', 'photo tools', 'online image tools'],
+  keywords: ['crop image online', 'free image cropper', 'image editor', 'resize image', 'rotate image', 'photo tools', 'online image tools', 'image resizer', 'image enhancer', 'background remover'],
   authors: [{ name: 'Crop Image', url: 'https://cropsimage.com' }],
   creator: 'Crop Image',
+  publisher: 'Crop Image',
+  applicationName: 'CropsImage',
+  generator: 'Next.js',
+  referrer: 'origin-when-cross-origin',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  alternates: {
+    canonical: 'https://cropsimage.com',
+  },
   themeColor: '#ffffff',
   metadataBase: new URL('https://cropsimage.com'),
   openGraph: {
     title: 'Crop Image Online - Free Image Cropper & Editing Tools',
     description: 'Crop images online for free with our easy-to-use image cropper. Resize, rotate, and optimize your images with multiple free image tools.',
     url: 'https://cropsimage.com',
-    siteName: 'ImageToolsPro',
+    siteName: 'CropsImage',
     images: [
       {
         url: 'https://i.ibb.co/Q3PrgT0V/Portrait-Cropping-Demonstration.webp',
@@ -29,9 +48,12 @@ export const metadata: Metadata = {
       },
     ],
     type: 'website',
+    locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
+    site: '@cropsimage',
+    creator: '@cropsimage',
     title: 'Crop Image Online - Free Image Cropper & Editing Tools',
     description: 'Crop images online for free with our easy-to-use image cropper. Resize, rotate, and optimize your images with multiple free image tools.',
     images: ['https://i.ibb.co/Q3PrgT0V/Portrait-Cropping-Demonstration.webp'],
@@ -41,6 +63,7 @@ export const metadata: Metadata = {
     shortcut: '/favicon.ico',
     apple: '/favicon.ico',
   },
+  category: 'utilities',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -50,8 +73,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <AppRouterCacheProviderWrapper>
           <Header />
           {children}
+          <Footer />
+          <CookiesPopup />
         </AppRouterCacheProviderWrapper>
-        <Footer />
         <Analytics />
       </body>
     </html>

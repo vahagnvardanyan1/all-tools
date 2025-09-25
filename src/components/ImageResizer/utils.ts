@@ -4,8 +4,8 @@ export const validateImageFile = (file: File): { isValid: boolean; error?: strin
     return { isValid: false, error: 'Please select a valid image file.' };
   }
 
-  if (file.size > 10 * 1024 * 1024) {
-    return { isValid: false, error: 'File size must be less than 10MB.' };
+  if (file.size > 40 * 1024 * 1024) {
+    return { isValid: false, error: 'File size must be less than 40MB.' };
   }
 
   return { isValid: true };

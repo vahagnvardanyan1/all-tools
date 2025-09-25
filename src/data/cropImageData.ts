@@ -5,7 +5,7 @@ export const cropFaqData = [
   },
   {
     question: 'What image formats are supported?',
-    answer: 'We support all major image formats including JPG, PNG, and GIF. The maximum file size is 10MB per image.',
+    answer: 'We support all major image formats including JPG, PNG, and GIF. The maximum file size is 40MB per image.',
   },
   {
     question: 'Will cropping reduce the quality of my image?',
@@ -62,7 +62,7 @@ export const cropHowToData = {
       iconName: 'CloudUpload',
       title: 'Upload Your Image',
       description: 'Drag and drop your image into the upload area or click to select from your device.',
-      details: ['Supports JPG, PNG, and GIF formats', 'Maximum file size: 10MB', 'Works with photos, graphics, and screenshots'],
+      details: ['Supports JPG, PNG, and GIF formats', 'Maximum file size: 40MB', 'Works with photos, graphics, and screenshots'],
     },
     {
       iconName: 'CropRotate',
