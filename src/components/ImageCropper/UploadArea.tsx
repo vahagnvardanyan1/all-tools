@@ -2,7 +2,6 @@ import React, { useCallback, useRef } from 'react';
 import { Box, Typography, Button, Paper, Alert } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { CheckCircle } from '@mui/icons-material';
-import { track } from '@vercel/analytics';
 
 interface UploadAreaProps {
   isDragActive?: boolean;
@@ -80,44 +79,20 @@ const UploadArea: React.FC<UploadAreaComponentProps> = ({
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const validateAndSelectFile = useCallback(
-    (file: File, source: 'button' | 'drag_drop' = 'button') => {
+    (file: File) => {
       if (!file) return;
-
-      // Track file upload attempt
-      track('File Upload Attempt', {
-        source: source,
-        fileType: file.type,
-        fileSize: file.size,
-        fileName: file.name,
-      });
 
       // Validate file type
       if (!file.type.startsWith('image/')) {
-        track('File Upload Error', {
-          source: source,
-          error: 'invalid_file_type',
-          fileType: file.type,
-        });
         // Error handling will be done by parent component
         return;
       }
 
       // Validate file size (max 40MB)
       if (file.size > 40 * 1024 * 1024) {
-        track('File Upload Error', {
-          source: source,
-          error: 'file_too_large',
-          fileSize: file.size,
-        });
         // Error handling will be done by parent component
         return;
       }
-
-      track('File Upload Success', {
-        source: source,
-        fileType: file.type,
-        fileSize: file.size,
-      });
 
       onFileSelect(file);
     },
@@ -129,7 +104,7 @@ const UploadArea: React.FC<UploadAreaComponentProps> = ({
       e.preventDefault();
       setIsDragActive(false);
       const file = e.dataTransfer.files[0];
-      validateAndSelectFile(file, 'drag_drop');
+      validateAndSelectFile(file);
     },
     [validateAndSelectFile],
   );
@@ -147,18 +122,14 @@ const UploadArea: React.FC<UploadAreaComponentProps> = ({
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0];
-      if (file) validateAndSelectFile(file, 'button');
+      if (file) validateAndSelectFile(file);
     },
     [validateAndSelectFile],
   );
 
   const handleClick = useCallback(() => {
-    track('Upload Button Click', {
-      location: 'upload_area',
-      buttonText: buttonText,
-    });
     fileInputRef.current?.click();
-  }, [buttonText]);
+  }, []);
 
   const defaultSubtitle = (
     <>

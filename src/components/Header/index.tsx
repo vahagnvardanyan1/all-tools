@@ -12,7 +12,6 @@ import Link from 'next/link';
 import useDevice from '@/hooks/useDevice';
 import dynamic from 'next/dynamic';
 import DesktopMenu from './DesktopMenu';
-import { track } from '@vercel/analytics';
 
 const MobileMenu = dynamic(() => import('./MobileMenu'));
 
@@ -23,28 +22,12 @@ const Header = () => {
   const { isMobile } = useDevice();
 
   const onMenuOpen = (event?: MouseEvent<HTMLButtonElement>) => {
-    track('Mobile Menu Open', {
-      device: isMobile ? 'mobile' : 'desktop',
-      location: 'header',
-    });
     setIsMenuOpen(true);
     setAnchorEl(event?.currentTarget ?? null);
   };
-
   const onMenuClose = () => {
-    track('Mobile Menu Close', {
-      device: isMobile ? 'mobile' : 'desktop',
-      location: 'header',
-    });
     setIsMenuOpen(false);
     setAnchorEl(null);
-  };
-
-  const handleLogoClick = () => {
-    track('Logo Click', {
-      destination: 'home',
-      location: 'header',
-    });
   };
 
   return (
@@ -72,7 +55,7 @@ const Header = () => {
           px: { xs: 2, sm: 3, md: 4 },
         }}
       >
-        <Link href="/" aria-label="logo" tabIndex={0} style={{ textDecoration: 'none' }} onClick={handleLogoClick}>
+        <Link href="/" aria-label="logo" tabIndex={0} style={{ textDecoration: 'none' }}>
           <Box
             sx={{
               display: 'flex',
@@ -140,14 +123,7 @@ const Header = () => {
             <IconButton
               aria-label="header burger button"
               tabIndex={0}
-              onClick={e => {
-                track('Mobile Menu Button Click', {
-                  device: isMobile ? 'mobile' : 'desktop',
-                  action: 'open_menu',
-                  location: 'header',
-                });
-                onMenuOpen(e);
-              }}
+              onClick={onMenuOpen}
               sx={{
                 width: 48,
                 height: 48,

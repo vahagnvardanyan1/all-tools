@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Box, Typography, Container, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { ExpandMore } from '@mui/icons-material';
-import { track } from '@vercel/analytics';
 
 const FAQContainer = styled(Container)(({ theme }) => ({
   marginTop: theme.spacing(8),
@@ -107,13 +106,7 @@ interface FAQProps {
 const FAQ: React.FC<FAQProps> = ({ faqData, title = 'Frequently Asked Questions' }) => {
   const [expanded, setExpanded] = useState<string | false>(false);
 
-  const handleChange = (panel: string, question: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-    track('FAQ Item Toggle', {
-      question: question,
-      panel: panel,
-      isExpanded: isExpanded,
-      location: 'faq_section',
-    });
+  const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
     setExpanded(isExpanded ? panel : false);
   };
 
@@ -127,7 +120,7 @@ const FAQ: React.FC<FAQProps> = ({ faqData, title = 'Frequently Asked Questions'
           const isExpanded = expanded === panelId;
 
           return (
-            <StyledAccordion key={index} expanded={isExpanded} onChange={handleChange(panelId, faq.question)} isExpanded={isExpanded}>
+            <StyledAccordion key={index} expanded={isExpanded} onChange={handleChange(panelId)} isExpanded={isExpanded}>
               <StyledAccordionSummary expandIcon={<ExpandMore />} aria-controls={`${panelId}-content`} id={`${panelId}-header`}>
                 <QuestionText>{faq.question}</QuestionText>
               </StyledAccordionSummary>

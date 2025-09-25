@@ -2,7 +2,6 @@ import React from 'react';
 import { Box, Typography, Button, TextField, FormControlLabel, Checkbox, Tooltip } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Download, Refresh, AspectRatio, PhotoSizeSelectLarge } from '@mui/icons-material';
-import { track } from '@vercel/analytics';
 
 interface ResizeSettings {
   width: number;
@@ -46,47 +45,24 @@ const presetSizes = [
 const ResizeControls: React.FC<ResizeControlsProps> = ({ resizeSettings, originalDimensions, resizedImage, isProcessing, onResizeSettingsChange, onResize, onDownload, onReset }) => {
   const handleWidthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const width = parseInt(event.target.value) || 0;
-    track('Resize Width Change', {
-      newWidth: width,
-      location: 'resize_controls',
-    });
     onResizeSettingsChange({ width });
   };
 
   const handleHeightChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const height = parseInt(event.target.value) || 0;
-    track('Resize Height Change', {
-      newHeight: height,
-      location: 'resize_controls',
-    });
     onResizeSettingsChange({ height });
   };
 
   const handleAspectRatioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    track('Resize Aspect Ratio Toggle', {
-      maintainAspectRatio: event.target.checked,
-      location: 'resize_controls',
-    });
     onResizeSettingsChange({ maintainAspectRatio: event.target.checked });
   };
 
-  const handlePresetSize = (width: number, height: number, label: string) => {
-    track('Resize Preset Size Click', {
-      presetLabel: label,
-      width: width,
-      height: height,
-      location: 'resize_controls',
-    });
+  const handlePresetSize = (width: number, height: number) => {
     onResizeSettingsChange({ width, height });
   };
 
   const handleRestoreOriginal = () => {
     if (originalDimensions) {
-      track('Resize Restore Original', {
-        originalWidth: originalDimensions.width,
-        originalHeight: originalDimensions.height,
-        location: 'resize_controls',
-      });
       onResizeSettingsChange({
         width: originalDimensions.width,
         height: originalDimensions.height,
@@ -126,7 +102,7 @@ const ResizeControls: React.FC<ResizeControlsProps> = ({ resizeSettings, origina
           </Typography>
           <Box display="flex" flexWrap="wrap" gap={1} mb={2}>
             {presetSizes.map(preset => (
-              <PresetButton key={preset.label} variant="outlined" size="small" onClick={() => handlePresetSize(preset.width, preset.height, preset.label)} startIcon={<PhotoSizeSelectLarge />}>
+              <PresetButton key={preset.label} variant="outlined" size="small" onClick={() => handlePresetSize(preset.width, preset.height)} startIcon={<PhotoSizeSelectLarge />}>
                 {preset.label}
               </PresetButton>
             ))}
@@ -143,57 +119,17 @@ const ResizeControls: React.FC<ResizeControlsProps> = ({ resizeSettings, origina
 
       {/* Action Buttons */}
       <Box display="flex" gap={2} justifyContent="center" flexWrap="wrap">
-        <Button
-          variant="contained"
-          onClick={() => {
-            track('Resize Image Button Click', {
-              width: resizeSettings.width,
-              height: resizeSettings.height,
-              maintainAspectRatio: resizeSettings.maintainAspectRatio,
-              isProcessing: isProcessing,
-              location: 'resize_controls',
-            });
-            onResize();
-          }}
-          disabled={isProcessing}
-          size="large"
-          sx={{ minWidth: 120 }}
-        >
+        <Button variant="contained" onClick={onResize} disabled={isProcessing} size="large" sx={{ minWidth: 120 }}>
           {isProcessing ? 'Resizing...' : 'Resize Image'}
         </Button>
 
         {resizedImage && (
-          <Button
-            variant="contained"
-            color="success"
-            onClick={() => {
-              track('Resize Download Button Click', {
-                width: resizeSettings.width,
-                height: resizeSettings.height,
-                location: 'resize_controls',
-              });
-              onDownload();
-            }}
-            startIcon={<Download />}
-            size="large"
-            sx={{ minWidth: 120 }}
-          >
+          <Button variant="contained" color="success" onClick={onDownload} startIcon={<Download />} size="large" sx={{ minWidth: 120 }}>
             Download
           </Button>
         )}
 
-        <Button
-          variant="outlined"
-          onClick={() => {
-            track('Resize Reset Button Click', {
-              location: 'resize_controls',
-            });
-            onReset();
-          }}
-          startIcon={<Refresh />}
-          size="large"
-          sx={{ minWidth: 120 }}
-        >
+        <Button variant="outlined" onClick={onReset} startIcon={<Refresh />} size="large" sx={{ minWidth: 120 }}>
           Reset
         </Button>
       </Box>

@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react';
 import { Box, Typography, Accordion, AccordionSummary, AccordionDetails, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { CloudUpload } from '@mui/icons-material';
-import { track } from '@vercel/analytics';
 
 interface HowToStep {
   iconName: string;
@@ -192,10 +191,6 @@ const HowToAccordion: React.FC<HowToProps> = ({ steps, title, imageSrc = '/windo
               startIcon={<CloudUpload />}
               variant="contained"
               onClick={() => {
-                track('How To Upload Button Click', {
-                  location: 'how_to_accordion',
-                  action: 'scroll_to_upload',
-                });
                 const el = document.getElementById('hero-title');
                 if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
               }}

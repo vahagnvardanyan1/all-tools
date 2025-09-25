@@ -1,7 +1,6 @@
 import { styled } from '@mui/material/styles';
 import Link from 'next/link';
 import React from 'react';
-import { track } from '@vercel/analytics';
 
 type NavigationItemProps = {
   title: string;
@@ -47,19 +46,9 @@ const StyledLink = styled(Link, {
   },
 }));
 
-const NavigationItem = ({ title, href, isActive, onClick }: NavigationItemProps) => {
-  const handleClick = () => {
-    track('Navigation Click', {
-      page: title,
-      href: href,
-      isActive: isActive || false,
-      location: 'header',
-    });
-    onClick();
-  };
-
+const NavigationItem = ({ title, href, isActive }: NavigationItemProps) => {
   return (
-    <StyledLink href={href} isActive={isActive} onClick={handleClick}>
+    <StyledLink href={href} isActive={isActive}>
       {title}
     </StyledLink>
   );

@@ -5,7 +5,6 @@ import Box from '@mui/material/Box';
 import { usePathname } from 'next/navigation';
 import { headerNavigationItems } from '@/constants/navigation';
 import NavigationItem from './NavigationItem';
-import { track } from '@vercel/analytics';
 
 type MobileMenuProps = {
   onClose: () => void;
@@ -15,28 +14,12 @@ type MobileMenuProps = {
 const MobileMenu = ({ onClose, anchorEl }: MobileMenuProps) => {
   const pathname = usePathname();
 
-  const handleClose = () => {
-    track('Mobile Menu Close', {
-      trigger: 'backdrop_click',
-      location: 'mobile_menu',
-    });
-    onClose();
-  };
-
-  const handleNavigationClick = () => {
-    track('Mobile Menu Navigation', {
-      action: 'item_click',
-      location: 'mobile_menu',
-    });
-    onClose();
-  };
-
   return (
     <Box sx={{ display: 'flex' }}>
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
-        onClose={handleClose}
+        onClose={onClose}
         sx={{
           '& .MuiPaper-root': {
             borderRadius: '16px',
@@ -60,7 +43,7 @@ const MobileMenu = ({ onClose, anchorEl }: MobileMenuProps) => {
       >
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5, px: 1 }}>
           {headerNavigationItems.map(item => (
-            <NavigationItem {...item} onClick={handleNavigationClick} isActive={pathname === item.href} key={item.title} />
+            <NavigationItem {...item} onClick={onClose} isActive={pathname === item.href} key={item.title} />
           ))}
         </Box>
       </Menu>
