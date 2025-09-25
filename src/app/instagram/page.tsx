@@ -13,6 +13,7 @@ import UploadArea from '@/components/ImageCropper/UploadArea';
 import ImageCropper from '@/components/ImageCropper/ImageCropper';
 import CropSidebar from '@/components/ImageCropper/CropSidebar';
 import { getCroppedImg, validateImageFile } from '@/components/ImageCropper/utils';
+import HowToAccordion from '@/components/HowToAccordion';
 
 interface CropArea {
   x: number;
@@ -164,7 +165,13 @@ const InstagramCropTool = () => {
         title="Crop Images for Instagram – Free Online Instagram Crop Tool"
         description="Easily crop photos for Instagram posts, stories, reels, and profile pictures. Choose from 1:1, 4:5, 9:16, and more aspect ratios. Perfectly optimized images for Instagram in seconds."
       />
-      <HowTo {...cropHowToData} />
+      <HowToAccordion
+        steps={cropHowToData.steps}
+        title={cropHowToData.title}
+        subtitle="Open the app, upload, crop, explore tools, and download."
+        imageSrc="https://i.ibb.co/CKBCDzjm/Chat-GPT-Image-Sep-25-2025-09-05-22-PM.png"
+        imagePosition="left"  
+      />
       <EditorPreview
         imageSrc="https://i.ibb.co/3yhw9Lky/Instagram-Crop-Tool-Layout.webp"
         title="Instagram Aspect Ratios"

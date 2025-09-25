@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
-import { Typography, Container, Box } from '@mui/material';
+import { Typography, Container, Box, Snackbar, Alert } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import HowTo from '@/components/HowTo';
 import ValueItemisation from '@/components/ValueItemisation';
@@ -12,6 +12,7 @@ import UploadArea from '@/components/ImageCropper/UploadArea';
 import ImageCropper from '@/components/ImageCropper/ImageCropper';
 import CropSidebar from '@/components/ImageCropper/CropSidebar';
 import { getCroppedImg, validateImageFile } from '@/components/ImageCropper/utils';
+import HowToAccordion from '@/components/HowToAccordion';
 
 interface CropArea {
   x: number;
@@ -33,6 +34,8 @@ const CropImage = () => {
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<CropArea | null>(null);
   const [aspectRatio, setAspectRatio] = useState<number | null>(null);
   const [error, setError] = useState('');
+  const [snackOpen, setSnackOpen] = useState(false);
+  const [snackMsg, setSnackMsg] = useState('');
 
   const onCropComplete = useCallback((croppedArea: CropArea, croppedAreaPixels: CropArea) => {
     setCroppedAreaPixels(croppedAreaPixels);
@@ -71,6 +74,13 @@ const CropImage = () => {
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
+
+      const isiOS = typeof window !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
+      const message = isiOS
+        ? 'Downloaded. Open Files → Downloads to find it. To add to Photos: open file, Share → Save Image.'
+        : "Downloaded as 'cropped-image.jpg' (check your Downloads folder).";
+      setSnackMsg(message);
+      setSnackOpen(true);
     } catch {
       setError('Failed to crop image. Please try again.');
     }
@@ -89,6 +99,7 @@ const CropImage = () => {
     <StyledContainer maxWidth="lg">
       <Box textAlign="center">
         <Typography
+          id="hero-title"
           variant="h1"
           sx={{
             textAlign: 'center',
@@ -97,6 +108,7 @@ const CropImage = () => {
             fontSize: { xs: '2rem', md: '2.8125rem' },
             lineHeight: 1.1,
             color: '#0B1220',
+            scrollMarginTop: { xs: '80px', md: '100px' },
           }}
         >
           Free online image{' '}
@@ -156,14 +168,31 @@ const CropImage = () => {
         </Box>
       )}
       <ValueItemisation valueItems={cropValueItems} />
-      <EditorPreview />
-      <HowTo {...cropHowToData} />
+      <EditorPreview imagePosition="right" />
+      <HowToAccordion
+        steps={cropHowToData.steps}
+        title={cropHowToData.title}
+        subtitle="Open the app, upload, crop, explore tools, and download."
+        imageSrc="https://i.ibb.co/CKBCDzjm/Chat-GPT-Image-Sep-25-2025-09-05-22-PM.png"
+        imagePosition="left"  
+      />
       <EditorPreview
-        imageSrc="https://i.ibb.co/d0Byk3Yj/ratios.png"
+        imagePosition="right"
+        imageSrc="https://i.ibb.co/XZkyW2G0/Chat-GPT-Image-Sep-25-2025-09-48-51-PM.webp"
         title="Multiple Aspect Ratios"
         description="Easily crop your photos to any aspect ratio — perfect squares, classic 3:2, wide 16:9, or custom sizes. Quickly adjust and rotate images to create professional-quality visuals for social media, websites, and projects."
       />
       <FAQ faqData={cropFaqData} />
+      <Snackbar
+        open={snackOpen}
+        autoHideDuration={5000}
+        onClose={() => setSnackOpen(false)}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert onClose={() => setSnackOpen(false)} severity="success" variant="filled" sx={{ width: '100%' }}>
+          {snackMsg}
+        </Alert>
+      </Snackbar>
     </StyledContainer>
   );
 };

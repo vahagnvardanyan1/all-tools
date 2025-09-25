@@ -47,7 +47,7 @@ export const resizeValueItems = [
   {
     iconName: 'MoneyOff',
     title: 'Free image resizing',
-    description: "Save time, money, and peace of mind with Picsart's free image resizer.",
+    description: "Save time, money, and peace of mind with CropsImage free image resizer.",
   },
   {
     iconName: 'HighQuality',
@@ -71,7 +71,7 @@ export const resizeHowToData = {
     {
       iconName: 'CloudUpload',
       title: 'Open image resizer',
-      description: 'Use the button below to go to Picsart Photo Editor',
+      description: 'Use the button below to go to CropsImage',
       details: ['Click on the upload area', 'Drag and drop your image', 'Select from your device'],
     },
     {

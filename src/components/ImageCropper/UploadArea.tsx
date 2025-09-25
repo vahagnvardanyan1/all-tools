@@ -231,7 +231,6 @@ const UploadArea: React.FC<UploadAreaComponentProps> = ({
             py: { xs: 1.75, md: 2 },
             fontWeight: 800,
             textTransform: 'none',
-            // backgroundColor: 'primary.main',
             backgroundImage: 'linear-gradient(90deg, #2563EB 0%, #7C3AED 100%)',
             color: 'primary.contrastText',
             boxShadow: 'none',

@@ -3,7 +3,6 @@
 import React, { useState, useCallback } from 'react';
 import { Typography, Container, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import HowTo from '@/components/HowTo';
 import ValueItemisation from '@/components/ValueItemisation';
 import FAQ from '@/components/FAQ';
 import EditorPreview from '@/components/EditorPreview';
@@ -12,6 +11,7 @@ import UploadArea from '@/components/ImageCropper/UploadArea';
 import ImageCropper from '@/components/ImageCropper/ImageCropper';
 import CropSidebar from '@/components/ImageCropper/CropSidebar';
 import { getCroppedImg, validateImageFile } from '@/components/ImageCropper/utils';
+import HowToAccordion from '@/components/HowToAccordion';
 
 interface CropArea {
   x: number;
@@ -161,7 +161,13 @@ const PinterestCropTool = () => {
         title="Crop Images for Pinterest – Free Pinterest Crop Tool"
         description="Resize and crop images for Pinterest pins (2:3) and story pins (9:16). Free, fast, and perfect for creators."
       />
-      <HowTo {...cropHowToData} />
+      <HowToAccordion
+        steps={cropHowToData.steps}
+        title={cropHowToData.title}
+        subtitle="Open the app, upload, crop, explore tools, and download."
+        imageSrc="https://i.ibb.co/CKBCDzjm/Chat-GPT-Image-Sep-25-2025-09-05-22-PM.png"
+        imagePosition="left"  
+      />
       <EditorPreview
         imageSrc="https://i.ibb.co/d0Byk3Yj/ratios.png"
         title="Pinterest Vertical Formats"
