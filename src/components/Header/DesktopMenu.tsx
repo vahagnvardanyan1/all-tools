@@ -23,9 +23,6 @@ const DesktopMenu = ({ onClose }: DesktopMenuProps) => {
         py: 1,
         px: 2,
         borderRadius: '16px',
-        background: 'rgba(0, 0, 0, 0.02)',
-        backdropFilter: 'blur(10px)',
-        border: '1px solid rgba(0, 0, 0, 0.05)',
       }}
     >
       {headerNavigationItems.map(item => (
