@@ -12,6 +12,7 @@ import UploadArea from '@/components/ImageCropper/UploadArea';
 import ImageCropper from '@/components/ImageCropper/ImageCropper';
 import CropSidebar from '@/components/ImageCropper/CropSidebar';
 import { getCroppedImg, validateImageFile } from '@/components/ImageCropper/utils';
+import HowToAccordion from '@/components/HowToAccordion';
 
 interface CropArea {
   x: number;
@@ -98,6 +99,7 @@ const CropImage = () => {
     <StyledContainer maxWidth="lg">
       <Box textAlign="center">
         <Typography
+          id="hero-title"
           variant="h1"
           sx={{
             textAlign: 'center',
@@ -106,6 +108,7 @@ const CropImage = () => {
             fontSize: { xs: '2rem', md: '2.8125rem' },
             lineHeight: 1.1,
             color: '#0B1220',
+            scrollMarginTop: { xs: '80px', md: '100px' },
           }}
         >
           Free online image{' '}
@@ -166,7 +169,13 @@ const CropImage = () => {
       )}
       <ValueItemisation valueItems={cropValueItems} />
       <EditorPreview imagePosition="right" />
-      <HowTo {...cropHowToData} />
+      <HowToAccordion
+        steps={cropHowToData.steps}
+        title={cropHowToData.title}
+        subtitle="Open the app, upload, crop, explore tools, and download."
+        imageSrc="https://i.ibb.co/CKBCDzjm/Chat-GPT-Image-Sep-25-2025-09-05-22-PM.png"
+        imagePosition="left"  
+      />
       <EditorPreview
         imagePosition="right"
         imageSrc="https://i.ibb.co/XZkyW2G0/Chat-GPT-Image-Sep-25-2025-09-48-51-PM.webp"

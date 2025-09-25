@@ -37,7 +37,7 @@ export const cropValueItems = [
   {
     iconName: 'MoneyOff',
     title: 'Free photo cropping',
-    description: "Save time, money, and peace of mind with Picsart's free image cropper.",
+    description: "Save time, money, and peace of mind with CropsImage free image cropper.",
   },
   {
     iconName: 'HighQuality',

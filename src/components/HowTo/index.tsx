@@ -158,19 +158,6 @@ const HowTo: React.FC<HowToProps> = ({ steps, title, subtitle, proTip }) => {
           >
             {title}
           </Typography>
-          {subtitle && (
-            <Typography
-              variant="body1"
-              color="text.secondary"
-              sx={{
-                fontSize: '1rem',
-                lineHeight: 1.6,
-                textAlign: { xs: 'center', md: 'left' },
-              }}
-            >
-              {subtitle}
-            </Typography>
-          )}
         </TitleSection>
 
         {/* Right Column - Steps/Questions */}

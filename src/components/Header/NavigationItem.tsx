@@ -19,16 +19,12 @@ const StyledLink = styled(Link, {
   fontWeight: isActive ? 600 : 500,
   fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, sans-serif',
   padding: '8px 16px',
-  borderRadius: '12px',
+  borderRadius: '999px',
   transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-  background: isActive ? 'rgba(102, 126, 234, 0.1)' : 'transparent',
-  border: isActive ? '1px solid rgba(102, 126, 234, 0.2)' : '1px solid transparent',
 
   '&:hover': {
     color: '#667eea',
-    background: 'rgba(102, 126, 234, 0.08)',
     transform: 'translateY(-1px)',
-    boxShadow: '0 2px 8px rgba(102, 126, 234, 0.15)',
   },
 
   '&:active': {
@@ -42,9 +38,9 @@ const StyledLink = styled(Link, {
     bottom: '-2px',
     left: '50%',
     transform: 'translateX(-50%)',
-    width: isActive ? '20px' : '0',
+    width: isActive ? '40px' : '0',
     height: '2px',
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    background: 'linear-gradient(135deg, #667eea 10%, #764ba2 100%)',
     borderRadius: '1px',
     transition: 'width 0.3s ease',
   },
