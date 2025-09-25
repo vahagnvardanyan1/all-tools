@@ -11,11 +11,3 @@ Host: https://cropsimage.com
 
 # Sitemaps
 Sitemap: https://cropsimage.com/sitemap.xml
-Sitemap: https://cropsimage.com/sitemap-facebook.xml
-Sitemap: https://cropsimage.com/sitemap-instagram.xml
-Sitemap: https://cropsimage.com/sitemap-linkedin.xml
-Sitemap: https://cropsimage.com/sitemap-pinterest.xml
-Sitemap: https://cropsimage.com/sitemap-tiktok.xml
-Sitemap: https://cropsimage.com/sitemap-twitter.xml
-Sitemap: https://cropsimage.com/sitemap-youtube.xml
-
