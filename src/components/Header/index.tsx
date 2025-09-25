@@ -73,8 +73,8 @@ const Header = () => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                width: { xs: 50, sm: 60 },
-                height: { xs: 50, sm: 60 },
+                width: 50,
+                height: 50,
                 borderRadius: '16px',
                 background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                 boxShadow: '0 4px 15px rgba(102, 126, 234, 0.4)',
@@ -88,8 +88,8 @@ const Header = () => {
               <Image
                 src="/images/logo.png"
                 alt="CropsImage Logo"
-                width={60}
-                height={60}
+                width={40}
+                height={40}
                 style={{
                   width: 'auto',
                   height: '40px',
