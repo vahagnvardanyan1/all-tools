@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Typography, Button, ButtonBase } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Download, CheckCircle } from '@mui/icons-material';
+import { track } from '@vercel/analytics';
 
 interface PlatformPreset {
   label: string;
@@ -62,7 +63,16 @@ const CropSidebar: React.FC<CropSidebarProps> = ({ aspectRatio, onAspectRatioCha
           return (
             <Box key={item.label} sx={{ textAlign: 'center' }}>
               <RatioTile
-                onClick={() => onAspectRatioChange(item.value)}
+                onClick={() => {
+                  track('Aspect Ratio Change', {
+                    previousRatio: aspectRatio,
+                    newRatio: item.value,
+                    ratioLabel: item.label,
+                    ratioSub: item.sub,
+                    location: 'crop_sidebar',
+                  });
+                  onAspectRatioChange(item.value);
+                }}
                 sx={{
                   outline: 'none',
                   border: isActive ? '2px solid transparent' : undefined,
@@ -92,7 +102,14 @@ const CropSidebar: React.FC<CropSidebarProps> = ({ aspectRatio, onAspectRatioCha
         <Button
           variant="contained"
           startIcon={<Download />}
-          onClick={onDownload}
+          onClick={() => {
+            track('Download Button Click', {
+              aspectRatio: aspectRatio,
+              canDownload: canDownload,
+              location: 'crop_sidebar',
+            });
+            onDownload();
+          }}
           disabled={!canDownload}
           sx={{
             minWidth: 190,
@@ -112,7 +129,13 @@ const CropSidebar: React.FC<CropSidebarProps> = ({ aspectRatio, onAspectRatioCha
         </Button>
         <Button
           variant="outlined"
-          onClick={onReset}
+          onClick={() => {
+            track('Reset Button Click', {
+              aspectRatio: aspectRatio,
+              location: 'crop_sidebar',
+            });
+            onReset();
+          }}
           sx={{
             borderRadius: 999,
             px: { xs: 2.5, md: 3 },

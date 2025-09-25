@@ -12,6 +12,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import PinterestIcon from '@mui/icons-material/Pinterest';
+import { track } from '@vercel/analytics';
 
 const FooterContainer = styled(Box)(() => ({
   background: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)',
@@ -70,7 +71,16 @@ const Footer = () => {
         <Box sx={{ py: { xs: 6, md: 8 } }}>
           {/* Logo and Brand Section */}
           <Box sx={{ textAlign: 'center', mb: 6 }}>
-            <NextLink href="/" style={{ textDecoration: 'none' }}>
+            <NextLink
+              href="/"
+              style={{ textDecoration: 'none' }}
+              onClick={() => {
+                track('Footer Logo Click', {
+                  destination: 'home',
+                  location: 'footer',
+                });
+              }}
+            >
               <Box sx={{ display: 'inline-flex', alignItems: 'center', mb: 3 }}>
                 <Box
                   sx={{
@@ -150,7 +160,19 @@ const Footer = () => {
                 const IconComponent = social.icon;
                 const isActive = pathname === social.href;
                 return (
-                  <FooterLink key={social.name} href={social.href} active={isActive}>
+                  <FooterLink
+                    key={social.name}
+                    href={social.href}
+                    active={isActive}
+                    onClick={() => {
+                      track('Footer Social Link Click', {
+                        platform: social.name,
+                        href: social.href,
+                        isActive: isActive,
+                        location: 'footer',
+                      });
+                    }}
+                  >
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                       <IconComponent sx={{ fontSize: '1rem', color: 'inherit' }} />
                       {social.name}
