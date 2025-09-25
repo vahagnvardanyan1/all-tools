@@ -81,7 +81,8 @@ interface EditorPreviewProps {
   imageSrc?: string;
   title?: string;
   description?: string;
-  reverse?: boolean; // 👈 New prop
+  reverse?: boolean; // kept for backward compatibility
+  imagePosition?: 'left' | 'right'; // preferred explicit prop
 }
 
 const EditorPreview: React.FC<EditorPreviewProps> = ({
@@ -89,9 +90,11 @@ const EditorPreview: React.FC<EditorPreviewProps> = ({
   title = 'Free Online Image Crop Tool – Crop & Perfect Your Photos in Seconds',
   description = 'Easily crop and resize any image online without losing quality. Our fast and simple crop tool helps you adjust photos for Instagram, Facebook, websites, or any platform in just a few clicks. No downloads, no watermarks – 100% free.',
   reverse = false,
+  imagePosition = 'left',
 }) => {
+  const effectiveReverse = reverse || imagePosition === 'right';
   return (
-    <EditorContainer reverse={reverse}>
+    <EditorContainer reverse={effectiveReverse}>
       <LeftPanel>
         <EditorImage src={imageSrc} alt="Image editor interface" loading="lazy" fetchPriority="high" crossOrigin="anonymous" />
       </LeftPanel>

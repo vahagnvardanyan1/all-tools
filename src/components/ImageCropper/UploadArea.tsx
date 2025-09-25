@@ -232,7 +232,6 @@ const UploadArea: React.FC<UploadAreaComponentProps> = ({
             fontSize: 'clamp(1rem, 1.2vw, 1.125rem)',
             fontWeight: 800,
             textTransform: 'none',
-            // backgroundColor: 'primary.main',
             backgroundImage: 'linear-gradient(90deg, #2563EB 0%, #7C3AED 100%)',
             color: 'primary.contrastText',
             boxShadow: 'none',
