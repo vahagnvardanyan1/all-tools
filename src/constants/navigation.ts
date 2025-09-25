@@ -5,7 +5,6 @@ export const headerNavigationItems: Array<NavigationItem> = [
   { title: 'Resize Image', href: '/resize-image' },
 ];
 
-
 export const footerNavigationItems: Array<NavigationItem> = [
   { title: 'Crop', href: '/' },
   { title: 'Resize Image', href: '/resize-image' },
