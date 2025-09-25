@@ -86,7 +86,7 @@ const Title = styled(Typography)(({ theme }) => ({
   [theme.breakpoints.up('md')]: { fontSize: '2.25rem' },
 }));
 
-const StepTitle = styled(Typography)(({ theme }) => ({
+const StepTitle = styled(Typography)(() => ({
   fontSize: '1.25rem',
   fontWeight: 800,
   color: '#0B1220',
@@ -115,7 +115,7 @@ const CompactAccordion = styled(Accordion)(({ theme }) => ({
   '& .MuiAccordionDetails-root': { padding: 0, paddingTop: theme.spacing(1) },
 }));
 
-const HowToAccordion: React.FC<HowToProps> = ({ steps, title, subtitle, imageSrc = '/window.svg', imagePosition = 'left' }) => {
+const HowToAccordion: React.FC<HowToProps> = ({ steps, title, imageSrc = '/window.svg', imagePosition = 'left' }) => {
   const [expanded, setExpanded] = useState<number | null>(0);
   const firstStepRef = useRef<HTMLDivElement | null>(null);
 
@@ -218,5 +218,3 @@ const HowToAccordion: React.FC<HowToProps> = ({ steps, title, subtitle, imageSrc
 };
 
 export default HowToAccordion;
-
-

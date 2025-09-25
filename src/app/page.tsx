@@ -3,7 +3,6 @@
 import React, { useState, useCallback } from 'react';
 import { Typography, Container, Box, Snackbar, Alert } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import HowTo from '@/components/HowTo';
 import ValueItemisation from '@/components/ValueItemisation';
 import FAQ from '@/components/FAQ';
 import EditorPreview from '@/components/EditorPreview';
@@ -76,9 +75,7 @@ const CropImage = () => {
       URL.revokeObjectURL(url);
 
       const isiOS = typeof window !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
-      const message = isiOS
-        ? 'Downloaded. Open Files → Downloads to find it. To add to Photos: open file, Share → Save Image.'
-        : "Downloaded as 'cropped-image.jpg' (check your Downloads folder).";
+      const message = isiOS ? 'Downloaded. Open Files → Downloads to find it. To add to Photos: open file, Share → Save Image.' : "Downloaded as 'cropped-image.jpg' (check your Downloads folder).";
       setSnackMsg(message);
       setSnackOpen(true);
     } catch {
@@ -174,7 +171,7 @@ const CropImage = () => {
         title={cropHowToData.title}
         subtitle="Open the app, upload, crop, explore tools, and download."
         imageSrc="https://i.ibb.co/CKBCDzjm/Chat-GPT-Image-Sep-25-2025-09-05-22-PM.png"
-        imagePosition="left"  
+        imagePosition="left"
       />
       <EditorPreview
         imagePosition="right"
@@ -183,12 +180,7 @@ const CropImage = () => {
         description="Easily crop your photos to any aspect ratio — perfect squares, classic 3:2, wide 16:9, or custom sizes. Quickly adjust and rotate images to create professional-quality visuals for social media, websites, and projects."
       />
       <FAQ faqData={cropFaqData} />
-      <Snackbar
-        open={snackOpen}
-        autoHideDuration={5000}
-        onClose={() => setSnackOpen(false)}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-      >
+      <Snackbar open={snackOpen} autoHideDuration={5000} onClose={() => setSnackOpen(false)} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
         <Alert onClose={() => setSnackOpen(false)} severity="success" variant="filled" sx={{ width: '100%' }}>
           {snackMsg}
         </Alert>

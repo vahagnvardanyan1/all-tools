@@ -27,5 +27,3 @@ const Description: React.FC<DescriptionProps> = ({ children }) => {
 };
 
 export default Description;
-
-

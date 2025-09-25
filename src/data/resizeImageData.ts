@@ -47,7 +47,7 @@ export const resizeValueItems = [
   {
     iconName: 'MoneyOff',
     title: 'Free image resizing',
-    description: "Save time, money, and peace of mind with CropsImage free image resizer.",
+    description: 'Save time, money, and peace of mind with CropsImage free image resizer.',
   },
   {
     iconName: 'HighQuality',

@@ -3,7 +3,6 @@
 import React, { useState, useCallback } from 'react';
 import { Typography, Container, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import HowTo from '@/components/HowTo';
 
 import ValueItemisation from '@/components/ValueItemisation';
 import FAQ from '@/components/FAQ';
@@ -170,7 +169,7 @@ const InstagramCropTool = () => {
         title={cropHowToData.title}
         subtitle="Open the app, upload, crop, explore tools, and download."
         imageSrc="https://i.ibb.co/CKBCDzjm/Chat-GPT-Image-Sep-25-2025-09-05-22-PM.png"
-        imagePosition="left"  
+        imagePosition="left"
       />
       <EditorPreview
         imageSrc="https://i.ibb.co/3yhw9Lky/Instagram-Crop-Tool-Layout.webp"
