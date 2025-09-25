@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <sitemap><loc>https://cropsimage.com/sitemap-0.xml</loc></sitemap>
+<sitemap><loc>https://cropsimage.com/sitemap-facebook.xml</loc></sitemap>
+<sitemap><loc>https://cropsimage.com/sitemap-instagram.xml</loc></sitemap>
+<sitemap><loc>https://cropsimage.com/sitemap-linkedin.xml</loc></sitemap>
+<sitemap><loc>https://cropsimage.com/sitemap-pinterest.xml</loc></sitemap>
+<sitemap><loc>https://cropsimage.com/sitemap-tiktok.xml</loc></sitemap>
+<sitemap><loc>https://cropsimage.com/sitemap-twitter.xml</loc></sitemap>
+<sitemap><loc>https://cropsimage.com/sitemap-youtube.xml</loc></sitemap>
 </sitemapindex>

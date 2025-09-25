@@ -55,7 +55,7 @@ const Header = () => {
           px: { xs: 2, sm: 3, md: 4 },
         }}
       >
-        <Link href="/" aria-label="l" tabIndex={0} style={{ textDecoration: 'none' }}>
+        <Link href="/" aria-label="logo" tabIndex={0} style={{ textDecoration: 'none' }}>
           <Box
             sx={{
               display: 'flex',
