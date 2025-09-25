@@ -3,7 +3,7 @@ import React from 'react';
 import Menu from '@mui/material/Menu';
 import Box from '@mui/material/Box';
 import { usePathname } from 'next/navigation';
-import { navigationItems } from '@/constants/navigation';
+import { headerNavigationItems } from '@/constants/navigation';
 import NavigationItem from './NavigationItem';
 
 type MobileMenuProps = {
@@ -17,7 +17,7 @@ const MobileMenu = ({ onClose, anchorEl }: MobileMenuProps) => {
   return (
     <Box sx={{ display: 'flex' }}>
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={onClose}>
-        {navigationItems.map(item => (
+        {headerNavigationItems.map(item => (
           <NavigationItem {...item} onClick={onClose} isActive={pathname === item.href} key={item.title} />
         ))}
       </Menu>

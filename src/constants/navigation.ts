@@ -1,6 +1,14 @@
-import { HeaderNavigationItem } from '@/types/navigation';
+import { NavigationItem } from '@/types/navigation';
 
-export const navigationItems: Array<HeaderNavigationItem> = [
+export const headerNavigationItems: Array<NavigationItem> = [
   { title: 'Crop', href: '/' },
   { title: 'Resize Image', href: '/resize-image' },
+];
+
+
+export const footerNavigationItems: Array<NavigationItem> = [
+  { title: 'Crop', href: '/' },
+  { title: 'Resize Image', href: '/resize-image' },
+  { title: 'Privacy Policy', href: '/privacy-policy' },
+  { title: 'Terms of Use', href: '/terms-of-use' },
 ];

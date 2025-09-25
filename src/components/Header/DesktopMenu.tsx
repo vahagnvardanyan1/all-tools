@@ -1,4 +1,4 @@
-import { navigationItems } from '@/constants/navigation';
+import { headerNavigationItems } from '@/constants/navigation';
 import Box from '@mui/material/Box';
 import React from 'react';
 import NavigationItem from './NavigationItem';
@@ -20,7 +20,7 @@ const DesktopMenu = ({ onClose }: DesktopMenuProps) => {
         justifyContent: 'center',
       }}
     >
-      {navigationItems.map(item => (
+      {headerNavigationItems.map(item => (
         <NavigationItem {...item} onClick={onClose} isActive={pathname === item.href} key={item.title} />
       ))}
     </Box>
