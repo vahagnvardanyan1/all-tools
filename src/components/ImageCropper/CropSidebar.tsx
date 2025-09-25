@@ -3,12 +3,18 @@ import { Box, Typography, Button, ButtonBase } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Download, CheckCircle } from '@mui/icons-material';
 
+interface PlatformPreset {
+  label: string;
+  ratio: number | null;
+}
+
 interface CropSidebarProps {
   aspectRatio: number | null;
   onAspectRatioChange: (aspectRatio: number | null) => void;
   onDownload: () => void;
   onReset: () => void;
   canDownload: boolean;
+  platformPresets?: Record<string, PlatformPreset>;
 }
 
 const RatioTile = styled(ButtonBase)(({ theme }) => ({
@@ -29,13 +35,21 @@ const RatioTile = styled(ButtonBase)(({ theme }) => ({
   },
 }));
 
-const CropSidebar: React.FC<CropSidebarProps> = ({ aspectRatio, onAspectRatioChange, onDownload, onReset, canDownload }) => {
-  const ratios = [
+const CropSidebar: React.FC<CropSidebarProps> = ({ aspectRatio, onAspectRatioChange, onDownload, onReset, canDownload, platformPresets }) => {
+  const defaultRatios = [
     { label: 'Landscape', value: 16 / 9, sub: '16:9' },
     { label: 'Portrait', value: 9 / 16, sub: '9:16' },
     { label: 'Square', value: 1, sub: '1:1' },
     { label: 'Freeform', value: null as number | null, sub: '' },
   ];
+
+  const ratios = platformPresets
+    ? Object.values(platformPresets).map(preset => ({
+        label: preset.label.split('(')[0].trim(),
+        value: preset.ratio,
+        sub: preset.label.includes('(') ? preset.label.match(/\(([^)]+)\)/)?.[1] || '' : '',
+      }))
+    : defaultRatios;
 
   return (
     <Box sx={{ position: 'relative' }}>
