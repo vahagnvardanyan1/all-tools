@@ -15,9 +15,17 @@ const DesktopMenu = ({ onClose }: DesktopMenuProps) => {
     <Box
       sx={{
         display: { xs: 'none', md: 'flex' },
-        gap: 3,
+        gap: 1,
         flexGrow: 1,
         justifyContent: 'center',
+        alignItems: 'center',
+        mx: 4,
+        py: 1,
+        px: 2,
+        borderRadius: '16px',
+        background: 'rgba(0, 0, 0, 0.02)',
+        backdropFilter: 'blur(10px)',
+        border: '1px solid rgba(0, 0, 0, 0.05)',
       }}
     >
       {headerNavigationItems.map(item => (

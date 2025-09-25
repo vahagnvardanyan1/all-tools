@@ -229,7 +229,6 @@ const UploadArea: React.FC<UploadAreaComponentProps> = ({
             borderRadius: 999,
             px: { xs: 4, md: 5 },
             py: { xs: 1.75, md: 2 },
-            fontSize: 'clamp(1rem, 1.2vw, 1.125rem)',
             fontWeight: 800,
             textTransform: 'none',
             // backgroundColor: 'primary.main',
