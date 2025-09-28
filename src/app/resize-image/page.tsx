@@ -5,13 +5,11 @@ import { Typography, Container, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useDownloadNotice } from '@/hooks/useDownloadNotice';
 import EditorPreview from '@/components/EditorPreview';
-import HowTo from '@/components/HowTo';
 import ValueItemisation from '@/components/ValueItemisation';
 import FAQ from '@/components/FAQ';
 import { resizeFaqData, resizeValueItems, resizeHowToData } from '@/data/resizeImageData';
 import UploadArea from '@/components/ImageCropper/UploadArea';
 import ResizeControls from '@/components/ImageResizer/ResizeControls';
-import DemoImagePreview from '@/components/ImageCropper/DemoImagePreview';
 import { resizeImage, validateImageFile } from '@/components/ImageResizer/utils';
 import HowToAccordion from '@/components/HowToAccordion';
 // Removed cropper UI here; we use resize controls instead to keep the page focused on resizing
@@ -27,21 +25,8 @@ const StyledContainer = styled(Container)(({ theme }) => ({
   paddingBottom: theme.spacing(4),
 }));
 
-const StyledTitle = styled(Typography)(({ theme }) => ({
-  marginBottom: theme.spacing(3),
-  fontWeight: 700,
-  color: theme.palette.primary.main,
-}));
-
-const StyledDescription = styled(Typography)(({ theme }) => ({
-  marginBottom: theme.spacing(4),
-  color: theme.palette.text.secondary,
-  lineHeight: 1.6,
-}));
-
 const ResizeImage = () => {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
-  const [showDemoImage, setShowDemoImage] = useState(true);
   const [resizedImage, setResizedImage] = useState<string | null>(null);
   const [originalDimensions, setOriginalDimensions] = useState<{ width: number; height: number } | null>(null);
   const [resizeSettings, setResizeSettings] = useState<ResizeSettings>({
@@ -53,7 +38,6 @@ const ResizeImage = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const { showDownloaded, DownloadNotice } = useDownloadNotice();
 
-
   const handleFileSelect = useCallback((file: File) => {
     const validation = validateImageFile(file);
 
@@ -63,7 +47,6 @@ const ResizeImage = () => {
     }
 
     setError('');
-    setShowDemoImage(false);
     setResizedImage(null);
 
     const reader = new FileReader();
@@ -138,7 +121,6 @@ const ResizeImage = () => {
       maintainAspectRatio: true,
     });
     setError('');
-    setShowDemoImage(true);
     setIsProcessing(false);
   }, []);
 
@@ -308,7 +290,7 @@ const ResizeImage = () => {
         title={resizeHowToData.title}
         subtitle="Open the app, upload, crop, explore tools, and download."
         imageSrc="https://i.ibb.co/CKBCDzjm/Chat-GPT-Image-Sep-25-2025-09-05-22-PM.png"
-        imagePosition="left"  
+        imagePosition="left"
       />
       <FAQ faqData={resizeFaqData} />
       {DownloadNotice}

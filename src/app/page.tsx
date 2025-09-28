@@ -4,7 +4,6 @@ import React, { useState, useCallback } from 'react';
 import { Typography, Container, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useDownloadNotice } from '@/hooks/useDownloadNotice';
-import HowTo from '@/components/HowTo';
 import ValueItemisation from '@/components/ValueItemisation';
 import FAQ from '@/components/FAQ';
 import EditorPreview from '@/components/EditorPreview';
@@ -169,7 +168,7 @@ const CropImage = () => {
         title={cropHowToData.title}
         subtitle="Open the app, upload, crop, explore tools, and download."
         imageSrc="https://i.ibb.co/CKBCDzjm/Chat-GPT-Image-Sep-25-2025-09-05-22-PM.png"
-        imagePosition="left"  
+        imagePosition="left"
       />
       <EditorPreview
         imagePosition="right"

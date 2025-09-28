@@ -37,5 +37,3 @@ const Title: React.FC<TitleProps> = ({ mainText, highlightText }) => {
 };
 
 export default Title;
-
-

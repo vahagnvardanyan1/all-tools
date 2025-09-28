@@ -169,7 +169,7 @@ const TikTokCropTool = () => {
         title={cropHowToData.title}
         subtitle="Open the app, upload, crop, explore tools, and download."
         imageSrc="https://i.ibb.co/CKBCDzjm/Chat-GPT-Image-Sep-25-2025-09-05-22-PM.png"
-        imagePosition="left"  
+        imagePosition="left"
       />
       <EditorPreview
         imageSrc="https://i.ibb.co/d0Byk3Yj/ratios.png"
