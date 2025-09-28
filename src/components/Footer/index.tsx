@@ -158,6 +158,9 @@ const Footer = () => {
                   </FooterLink>
                 );
               })}
+              <FooterLink href="https://imageconvertors.com/" target="_blank" rel="noopener noreferrer">
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>Image Tools</Box>
+              </FooterLink>
             </Box>
           </Box>
 
