@@ -1,8 +1,9 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
-import { Typography, Container, Box, Snackbar, Alert } from '@mui/material';
+import { Typography, Container, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { useDownloadNotice } from '@/hooks/useDownloadNotice';
 import HowTo from '@/components/HowTo';
 import ValueItemisation from '@/components/ValueItemisation';
 import FAQ from '@/components/FAQ';
@@ -34,8 +35,7 @@ const CropImage = () => {
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<CropArea | null>(null);
   const [aspectRatio, setAspectRatio] = useState<number | null>(null);
   const [error, setError] = useState('');
-  const [snackOpen, setSnackOpen] = useState(false);
-  const [snackMsg, setSnackMsg] = useState('');
+  const { showDownloaded, DownloadNotice } = useDownloadNotice();
 
   const onCropComplete = useCallback((croppedArea: CropArea, croppedAreaPixels: CropArea) => {
     setCroppedAreaPixels(croppedAreaPixels);
@@ -75,12 +75,7 @@ const CropImage = () => {
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
 
-      const isiOS = typeof window !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
-      const message = isiOS
-        ? 'Downloaded. Open Files → Downloads to find it. To add to Photos: open file, Share → Save Image.'
-        : "Downloaded as 'cropped-image.jpg' (check your Downloads folder).";
-      setSnackMsg(message);
-      setSnackOpen(true);
+      showDownloaded('cropped-image.jpg');
     } catch {
       setError('Failed to crop image. Please try again.');
     }
@@ -183,16 +178,7 @@ const CropImage = () => {
         description="Easily crop your photos to any aspect ratio — perfect squares, classic 3:2, wide 16:9, or custom sizes. Quickly adjust and rotate images to create professional-quality visuals for social media, websites, and projects."
       />
       <FAQ faqData={cropFaqData} />
-      <Snackbar
-        open={snackOpen}
-        autoHideDuration={5000}
-        onClose={() => setSnackOpen(false)}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-      >
-        <Alert onClose={() => setSnackOpen(false)} severity="success" variant="filled" sx={{ width: '100%' }}>
-          {snackMsg}
-        </Alert>
-      </Snackbar>
+      {DownloadNotice}
     </StyledContainer>
   );
 };

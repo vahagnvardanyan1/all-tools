@@ -3,6 +3,7 @@
 import React, { useState, useCallback } from 'react';
 import { Typography, Container, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { useDownloadNotice } from '@/hooks/useDownloadNotice';
 import ValueItemisation from '@/components/ValueItemisation';
 import FAQ from '@/components/FAQ';
 import EditorPreview from '@/components/EditorPreview';
@@ -33,6 +34,7 @@ const TikTokCropTool = () => {
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<CropArea | null>(null);
   const [aspectRatio, setAspectRatio] = useState<number | null>(9 / 16); // Default to 9:16 for TikTok
   const [error, setError] = useState('');
+  const { showDownloaded, DownloadNotice } = useDownloadNotice();
 
   const onCropComplete = useCallback((croppedArea: CropArea, croppedAreaPixels: CropArea) => {
     setCroppedAreaPixels(croppedAreaPixels);
@@ -71,6 +73,7 @@ const TikTokCropTool = () => {
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
+      showDownloaded('tiktok-cropped-image.jpg');
     } catch {
       setError('Failed to crop image. Please try again.');
     }
@@ -174,6 +177,7 @@ const TikTokCropTool = () => {
         description="Perfect your TikTok content with the signature 9:16 vertical format. Create engaging videos, profile covers, and ads that capture attention in the TikTok feed with our precision cropping tool."
       />
       <FAQ faqData={cropFaqData} />
+      {DownloadNotice}
     </StyledContainer>
   );
 };

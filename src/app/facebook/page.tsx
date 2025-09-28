@@ -3,6 +3,7 @@
 import React, { useState, useCallback } from 'react';
 import { Typography, Container, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { useDownloadNotice } from '@/hooks/useDownloadNotice';
 import ValueItemisation from '@/components/ValueItemisation';
 import FAQ from '@/components/FAQ';
 import EditorPreview from '@/components/EditorPreview';
@@ -33,6 +34,7 @@ const FacebookCropTool = () => {
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<CropArea | null>(null);
   const [aspectRatio, setAspectRatio] = useState<number | null>(1); // Default to 1:1 for profile pictures
   const [error, setError] = useState('');
+  const { showDownloaded, DownloadNotice } = useDownloadNotice();
 
   const onCropComplete = useCallback((croppedArea: CropArea, croppedAreaPixels: CropArea) => {
     setCroppedAreaPixels(croppedAreaPixels);
@@ -71,6 +73,7 @@ const FacebookCropTool = () => {
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
+      showDownloaded('facebook-cropped-image.jpg');
     } catch {
       setError('Failed to crop image. Please try again.');
     }
@@ -175,6 +178,7 @@ const FacebookCropTool = () => {
         description="Optimize your Facebook presence with the right image dimensions. Create square profile pictures (1:1), wide cover photos (820×312), and engaging post images (1.91:1) that look professional across all Facebook formats."
       />
       <FAQ faqData={cropFaqData} />
+      {DownloadNotice}
     </StyledContainer>
   );
 };

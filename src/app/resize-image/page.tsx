@@ -3,6 +3,8 @@
 import React, { useState, useCallback } from 'react';
 import { Typography, Container, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { useDownloadNotice } from '@/hooks/useDownloadNotice';
+import EditorPreview from '@/components/EditorPreview';
 import HowTo from '@/components/HowTo';
 import ValueItemisation from '@/components/ValueItemisation';
 import FAQ from '@/components/FAQ';
@@ -11,6 +13,8 @@ import UploadArea from '@/components/ImageCropper/UploadArea';
 import ResizeControls from '@/components/ImageResizer/ResizeControls';
 import DemoImagePreview from '@/components/ImageCropper/DemoImagePreview';
 import { resizeImage, validateImageFile } from '@/components/ImageResizer/utils';
+import HowToAccordion from '@/components/HowToAccordion';
+// Removed cropper UI here; we use resize controls instead to keep the page focused on resizing
 
 interface ResizeSettings {
   width: number;
@@ -47,6 +51,8 @@ const ResizeImage = () => {
   });
   const [error, setError] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
+  const { showDownloaded, DownloadNotice } = useDownloadNotice();
+
 
   const handleFileSelect = useCallback((file: File) => {
     const validation = validateImageFile(file);
@@ -116,6 +122,7 @@ const ResizeImage = () => {
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
+      showDownloaded('resized-image.jpg');
     } catch {
       setError('Failed to download image. Please try again.');
     }
@@ -158,22 +165,54 @@ const ResizeImage = () => {
   return (
     <StyledContainer maxWidth="lg">
       <Box textAlign="center">
-        <StyledTitle variant="h1" as="h1" sx={{ fontSize: { xs: '2rem', md: '3.5rem' }, lineHeight: { xs: 1.3, md: 1.2 } }}>
-          Free image resizer: Easily resize images online
-        </StyledTitle>
-        <StyledDescription variant="body1" as="p" sx={{ fontSize: { xs: '0.875rem', md: '1rem' } }}>
-          Resize images quickly and easily with our free online image resizer. Change dimensions while maintaining quality for all your image resizing needs.
-        </StyledDescription>
+        <Typography
+          id="hero-title"
+          variant="h1"
+          sx={{
+            textAlign: 'center',
+            fontWeight: 900,
+            letterSpacing: '-0.02em',
+            fontSize: { xs: '2rem', md: '2.8125rem' },
+            lineHeight: 1.1,
+            color: '#0B1220',
+            scrollMarginTop: { xs: '80px', md: '100px' },
+          }}
+        >
+          Free online image{' '}
+          <Box
+            component="span"
+            sx={{
+              background: 'linear-gradient(90deg, #2563EB 0%, #7C3AED 100%)',
+              WebkitBackgroundClip: 'text',
+              backgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}
+          >
+            resizer
+          </Box>
+          .
+        </Typography>
+        <Typography
+          component="p"
+          sx={{
+            mt: 1,
+            mx: 'auto',
+            maxWidth: 760,
+            textAlign: 'center',
+            fontSize: { xs: '1rem', md: '1.0625rem' },
+            lineHeight: 1.7,
+            letterSpacing: '-0.01em',
+            color: '#475569',
+            opacity: 0.95,
+          }}
+        >
+          Resize images quickly and easily. Change dimensions while maintaining quality for posts, websites, and more.
+        </Typography>
       </Box>
 
       {!imageSrc ? (
-        <Box display="flex" flexDirection={{ xs: 'column', md: 'row' }} gap={8} alignItems={{ xs: 'center', md: 'center' }} sx={{ minHeight: { md: '400px' } }}>
-          <Box flex={1} sx={{ order: { xs: 2, md: 1 } }}>
-            <DemoImagePreview show={showDemoImage} imageSrc="https://i.ibb.co/6jB6RSJ/2025-09-23-21-16-31.jpg" altText="Demo image for resizing" />
-          </Box>
-          <Box flex={1} display="flex" justifyContent="center" alignItems="center" sx={{ order: { xs: 1, md: 2 } }}>
-            <UploadArea onFileSelect={handleFileSelect} error={error} />
-          </Box>
+        <Box sx={{ mt: 6, display: 'flex', justifyContent: 'center' }}>
+          <UploadArea onFileSelect={handleFileSelect} error={error} buttonText="Upload your TikTok content" supportedFormats="File must be JPEG, JPG, PNG or WebP and up to 40MB" wide />
         </Box>
       ) : (
         <Box>
@@ -258,8 +297,21 @@ const ResizeImage = () => {
       )}
 
       <ValueItemisation valueItems={resizeValueItems} />
-      <HowTo {...resizeHowToData} />
+      <EditorPreview
+        imagePosition="right"
+        imageSrc="https://i.ibb.co/6jB6RSJ/2025-09-23-21-16-31.jpg"
+        title="Resize images online — fast and high‑quality"
+        description="Set exact width and height, keep aspect ratio, and preview instantly. Perfect sizes for web, social media, and more."
+      />
+      <HowToAccordion
+        steps={resizeHowToData.steps}
+        title={resizeHowToData.title}
+        subtitle="Open the app, upload, crop, explore tools, and download."
+        imageSrc="https://i.ibb.co/CKBCDzjm/Chat-GPT-Image-Sep-25-2025-09-05-22-PM.png"
+        imagePosition="left"  
+      />
       <FAQ faqData={resizeFaqData} />
+      {DownloadNotice}
     </StyledContainer>
   );
 };

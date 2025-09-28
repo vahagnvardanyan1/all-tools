@@ -3,6 +3,7 @@
 import React, { useState, useCallback } from 'react';
 import { Typography, Container, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { useDownloadNotice } from '@/hooks/useDownloadNotice';
 import ValueItemisation from '@/components/ValueItemisation';
 import FAQ from '@/components/FAQ';
 import EditorPreview from '@/components/EditorPreview';
@@ -33,6 +34,7 @@ const TwitterCropTool = () => {
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<CropArea | null>(null);
   const [aspectRatio, setAspectRatio] = useState<number | null>(1); // Default to 1:1 for profile pictures
   const [error, setError] = useState('');
+  const { showDownloaded, DownloadNotice } = useDownloadNotice();
 
   const onCropComplete = useCallback((croppedArea: CropArea, croppedAreaPixels: CropArea) => {
     setCroppedAreaPixels(croppedAreaPixels);
@@ -71,6 +73,7 @@ const TwitterCropTool = () => {
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
+      showDownloaded('twitter-cropped-image.jpg');
     } catch {
       setError('Failed to crop image. Please try again.');
     }
@@ -174,6 +177,7 @@ const TwitterCropTool = () => {
         description="Optimize your Twitter presence with the right image dimensions. Create square profile photos (1:1), wide headers (1500×500), and engaging tweet images (16:9) that stand out in the feed."
       />
       <FAQ faqData={cropFaqData} />
+      {DownloadNotice}
     </StyledContainer>
   );
 };

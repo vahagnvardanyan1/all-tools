@@ -3,6 +3,7 @@
 import React, { useState, useCallback } from 'react';
 import { Typography, Container, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { useDownloadNotice } from '@/hooks/useDownloadNotice';
 import ValueItemisation from '@/components/ValueItemisation';
 import FAQ from '@/components/FAQ';
 import EditorPreview from '@/components/EditorPreview';
@@ -33,6 +34,7 @@ const YouTubeCropTool = () => {
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<CropArea | null>(null);
   const [aspectRatio, setAspectRatio] = useState<number | null>(16 / 9); // Default to 16:9 for thumbnails
   const [error, setError] = useState('');
+  const { showDownloaded, DownloadNotice } = useDownloadNotice();
 
   const onCropComplete = useCallback((croppedArea: CropArea, croppedAreaPixels: CropArea) => {
     setCroppedAreaPixels(croppedAreaPixels);
@@ -71,6 +73,7 @@ const YouTubeCropTool = () => {
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
+      showDownloaded('youtube-cropped-image.jpg');
     } catch {
       setError('Failed to crop image. Please try again.');
     }
@@ -174,6 +177,7 @@ const YouTubeCropTool = () => {
         description="Optimize your YouTube channel with professional visuals. Create compelling thumbnails (16:9) that drive clicks, vertical content for Shorts (9:16), and perfect channel branding elements."
       />
       <FAQ faqData={cropFaqData} />
+      {DownloadNotice}
     </StyledContainer>
   );
 };

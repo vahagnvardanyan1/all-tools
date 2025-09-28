@@ -4,6 +4,7 @@ import React, { useState, useCallback } from 'react';
 import { Typography, Container, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import HowTo from '@/components/HowTo';
+import { useDownloadNotice } from '@/hooks/useDownloadNotice';
 
 import ValueItemisation from '@/components/ValueItemisation';
 import FAQ from '@/components/FAQ';
@@ -35,6 +36,8 @@ const InstagramCropTool = () => {
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<CropArea | null>(null);
   const [aspectRatio, setAspectRatio] = useState<number | null>(1); // Default to 1:1 for Instagram
   const [error, setError] = useState('');
+  const { showDownloaded, DownloadNotice } = useDownloadNotice();
+
 
   const onCropComplete = useCallback((croppedArea: CropArea, croppedAreaPixels: CropArea) => {
     setCroppedAreaPixels(croppedAreaPixels);
@@ -73,6 +76,7 @@ const InstagramCropTool = () => {
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
+      showDownloaded('instagram-cropped-image.jpg');
     } catch {
       setError('Failed to crop image. Please try again.');
     }
@@ -91,6 +95,7 @@ const InstagramCropTool = () => {
     <StyledContainer maxWidth="lg">
       <Box textAlign="center">
         <Typography
+          id="hero-title"
           variant="h1"
           sx={{
             textAlign: 'center',
@@ -99,9 +104,22 @@ const InstagramCropTool = () => {
             fontSize: { xs: '2rem', md: '2.8125rem' },
             lineHeight: 1.1,
             color: '#0B1220',
+            scrollMarginTop: { xs: '80px', md: '100px' },
           }}
         >
-          Crop Images for Instagram – Free Online Instagram Crop Tool
+          Crop Images for{' '}
+          <Box
+            component="span"
+            sx={{
+              background: 'linear-gradient(90deg, #2563EB 0%, #7C3AED 100%)',
+              WebkitBackgroundClip: 'text',
+              backgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}
+          >
+            Instagram
+          </Box>{' '}
+          – Free Online Instagram Crop Tool
         </Typography>
         <Typography
           component="p"
@@ -161,6 +179,7 @@ const InstagramCropTool = () => {
       )}
       <ValueItemisation valueItems={cropValueItems} />
       <EditorPreview
+        imagePosition="right"
         imageSrc="https://i.ibb.co/3mndVXxf/99b3d7a4-4f57-4d40-814f-59679f88bfd5.webp"
         title="Crop Images for Instagram – Free Online Instagram Crop Tool"
         description="Easily crop photos for Instagram posts, stories, reels, and profile pictures. Choose from 1:1, 4:5, 9:16, and more aspect ratios. Perfectly optimized images for Instagram in seconds."
@@ -178,6 +197,7 @@ const InstagramCropTool = () => {
         description="Perfect your Instagram content with the right dimensions. Create square posts (1:1) for your feed, portrait posts (4:5) for better engagement, landscape posts (1.91:1) for wide shots, and vertical content (9:16) for stories and reels."
       />
       <FAQ faqData={cropFaqData} />
+      {DownloadNotice}
     </StyledContainer>
   );
 };
