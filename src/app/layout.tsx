@@ -7,6 +7,7 @@ import AppRouterCacheProviderWrapper from '@/providers/AppRouterCacheProviderWra
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CookiesPopup from '@/components/CookiesPopup';
+import { StructuredData } from '@/components/StructuredData';
 
 export const metadata: Metadata = {
   title: 'Crop Image Online - Free Image Cropper & Editing Tools',
@@ -73,6 +74,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <AppRouterCacheProviderWrapper>
           <Header />
+          <StructuredData />
           {children}
           <Footer />
           <CookiesPopup />
