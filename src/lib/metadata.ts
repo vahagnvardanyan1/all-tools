@@ -22,7 +22,7 @@ export function safeStringify(value: unknown) {
 }
 
 function pretty(seg: string) {
-  return seg.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
+  return seg.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
 }
 
 /** ---- WebApplication builder ---- */
@@ -92,11 +92,7 @@ function coreBrandNodes(includeWebApp: boolean) {
  * - Social cropper tool pages (from PLATFORM_PRESETS)
  */
 function shouldIncludeWebApp(pathname: string) {
-  return (
-    pathname === '/' ||
-    pathname === '/resize-image' ||
-    Object.prototype.hasOwnProperty.call(PLATFORM_PRESETS, pathname)
-  );
+  return pathname === '/' || pathname === '/resize-image' || Object.prototype.hasOwnProperty.call(PLATFORM_PRESETS, pathname);
 }
 
 /** =========================
@@ -106,9 +102,7 @@ function buildBreadcrumbList(pathname: string) {
   if (pathname === '/') return null;
 
   const parts = pathname.split('/').filter(Boolean);
-  const items = [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: BASE_URL },
-  ];
+  const items = [{ '@type': 'ListItem', position: 1, name: 'Home', item: BASE_URL }];
 
   let acc = '';
   parts.forEach((seg, idx) => {
@@ -246,10 +240,7 @@ function homeExtraBlocks() {
 /** =========================
  *  Platform page presets
  *  ========================= */
-const PLATFORM_PRESETS: Record<
-  string,
-  { name: string; howtoSteps: string[]; about?: { name: string; sameAs: string } }
-> = {
+const PLATFORM_PRESETS: Record<string, { name: string; howtoSteps: string[]; about?: { name: string; sameAs: string } }> = {
   '/instagram': {
     name: 'Crop Images for Instagram – Free Instagram Crop Tool',
     howtoSteps: ['Upload', 'Choose ratio (1:1, 4:5, 1.91:1, 9:16)', 'Adjust & crop', 'Download'],
@@ -337,9 +328,7 @@ function platformBlocks(pathname: string) {
 
   const page = {
     ...webPage(pathname, preset?.name || pretty(pathname.slice(1))),
-    about: preset?.about
-      ? { '@type': 'Thing', name: preset.about.name, sameAs: preset.about.sameAs }
-      : undefined,
+    about: preset?.about ? { '@type': 'Thing', name: preset.about.name, sameAs: preset.about.sameAs } : undefined,
   };
 
   const howTo = preset
@@ -349,7 +338,7 @@ function platformBlocks(pathname: string) {
         name: `How to crop for ${preset.about?.name || pretty(pathname.slice(1))}`,
         inLanguage: 'en',
         tool: { '@id': APP_ID },
-        step: preset.howtoSteps.map((s) => ({
+        step: preset.howtoSteps.map(s => ({
           '@type': 'HowToStep',
           name: s.split(' (')[0],
           text: s,
@@ -360,7 +349,6 @@ function platformBlocks(pathname: string) {
   const crumbs = buildBreadcrumbList(pathname);
   return [page, ...(howTo ? [howTo] : []), ...(crumbs ? [crumbs] : [])];
 }
-
 
 /** =========================
  *  Build @graph per route
@@ -387,4 +375,3 @@ export function buildGraph(pathname: string) {
   const crumbs = buildBreadcrumbList(pathname);
   return [page, ...(crumbs ? [crumbs] : []), ...brand];
 }
-

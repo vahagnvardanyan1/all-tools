@@ -1,8 +1,8 @@
-'use client'
+'use client';
 
-import { buildGraph, safeStringify } from "@/lib/metadata";
-import { usePathname } from "next/navigation";
-import { useMemo } from "react";
+import { buildGraph, safeStringify } from '@/lib/metadata';
+import { usePathname } from 'next/navigation';
+import { useMemo } from 'react';
 
 export function StructuredData() {
   const pathname = usePathname() || '/';
@@ -12,11 +12,5 @@ export function StructuredData() {
 
   const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
 
-  return (
-    <script
-      type="application/ld+json"
-      suppressHydrationWarning
-      dangerouslySetInnerHTML={{ __html: safeStringify(jsonLd) }}
-    />
-  );
+  return <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: safeStringify(jsonLd) }} />;
 }
