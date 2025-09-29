@@ -19,18 +19,6 @@ export const metadata: Metadata = {
   applicationName: 'CropsImage',
   generator: 'Next.js',
   referrer: 'origin-when-cross-origin',
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      noimageindex: false,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
   alternates: {
     canonical: 'https://cropsimage.com',
   },
@@ -71,6 +59,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
+      <head>
+        <meta name="google-site-verification" content="bKTCV7v8G7o-kqJ4fM9oeeHU-hn2jAT_96lnYEg1RxE" />
+      </head>
       <body>
         <AppRouterCacheProviderWrapper>
           <Header />

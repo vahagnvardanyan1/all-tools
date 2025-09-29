@@ -1,7 +1,7 @@
 module.exports = {
   siteUrl: 'https://cropsimage.com',
   generateRobotsTxt: true,
-  exclude: ['/api/*'],
+  exclude: ['/api/*', '/404', '/500'],
   robotsTxtOptions: {
     policies: [
       { userAgent: '*', allow: '/' },
