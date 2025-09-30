@@ -1,9 +1,3 @@
-// app/_components/StructuredData.tsx
-'use client';
-
-import { useMemo } from 'react';
-import { usePathname } from 'next/navigation';
-
 /** =========================
  *  Site constants
  *  ========================= */

@@ -22,7 +22,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://cropsimage.com',
   },
-  themeColor: '#ffffff',
   metadataBase: new URL('https://cropsimage.com'),
   openGraph: {
     title: 'Crop Image Online - Free Image Cropper & Editing Tools',
@@ -49,9 +48,51 @@ export const metadata: Metadata = {
     images: ['https://i.ibb.co/Q3PrgT0V/Portrait-Cropping-Demonstration.webp'],
   },
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
-    apple: '/favicon.ico',
+    icon: [
+      {
+        url: '/favicon.ico',
+      },
+      {
+        url: '/favicon-32x32.jpg',
+        sizes: '32x32',
+        type: 'image/png',
+      },
+      {
+        url: '/favicon-48x48.png',
+        sizes: '48x48',
+        type: 'image/png',
+      },
+      {
+        url: '/favicon-96x96.png',
+        sizes: '96x96',
+        type: 'image/png',
+      },
+      {
+        url: '/favicon-96x96.png',
+        sizes: '192x192',
+        type: 'image/png',
+      },
+      {
+        url: '/favicon-512x512.png',
+        sizes: '512x512',
+        type: 'image/png',
+      },
+    ],
+    apple: [{ url: '/apple-touch-icon.png', sizes: '180×180', type: 'image/png' }],
+    other: [
+      {
+        rel: 'icon',
+        url: '/favicon-192x192.png',
+        sizes: '192x192',
+        type: 'image/png',
+      },
+      {
+        rel: 'icon',
+        url: '/favicon-512x512.png',
+        sizes: '512x512',
+        type: 'image/png',
+      },
+    ],
   },
   category: 'utilities',
 };
